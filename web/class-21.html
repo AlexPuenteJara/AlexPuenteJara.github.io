@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="GPC-UNI Resto del Mundo" />
+
+
+<title>Clase 21: 3 Dynamic Programming Classic Problems</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/elevate-section-attrs-2.0/elevate-section-attrs.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GPC-UNI Resto del mundo</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="schedule.html">Cronograma</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Clases
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="class-01.html">Introducción</a>
+    </li>
+    <li>
+      <a href="class-02.html">Complejidades + STL</a>
+    </li>
+    <li>
+      <a href="class-03.html">Contest 1</a>
+    </li>
+    <li>
+      <a href="class-04.html">Teoría de números</a>
+    </li>
+    <li>
+      <a href="class-05.html">Fuerza bruta I</a>
+    </li>
+    <li>
+      <a href="class-06.html">Fuerza bruta II</a>
+    </li>
+    <li>
+      <a href="class-07.html">Contest 2</a>
+    </li>
+    <li>
+      <a href="class-08.html">Recursión</a>
+    </li>
+    <li>
+      <a href="class-09.html">Backtracking I</a>
+    </li>
+    <li>
+      <a href="class-10.html">Recapitulacion I</a>
+    </li>
+    <li>
+      <a href="class-11.html">Contest UNI-UTEC I</a>
+    </li>
+    <li>
+      <a href="class-12.html">Backtracking II</a>
+    </li>
+    <li>
+      <a href="class-13.html">Backtracking II</a>
+    </li>
+    <li>
+      <a href="class-14.html">Bitmask</a>
+    </li>
+    <li>
+      <a href="class-15.html">Introducción a Greedy</a>
+    </li>
+    <li>
+      <a href="class-16.html">7 Greedy Problems</a>
+    </li>
+    <li>
+      <a href="class-17.html">Meet in the middle</a>
+    </li>
+    <li>
+      <a href="class-18.html">Dynamic Programming</a>
+    </li>
+    <li>
+      <a href="class-19.html">Grafos</a>
+    </li>
+    <li>
+      <a href="class-20.html">Divide and Conquer</a>
+    </li>
+    <li>
+      <a href="class-21.html">DP Classics</a>
+    </li>
+    <li>
+      <a href="class-22.html">Max Flow Introduction</a>
+    </li>
+    <li>
+      <a href="class-23.html">Max Flow Algorithm</a>
+    </li>
+    <li>
+      <a href="class-24.html">Sparse Table</a>
+    </li>
+    <li>
+      <a href="class-25.html">Binary Indexed Tree</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    TC Argentina 2020
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="TCAC1-EditorialI.html">Editorial Contest 1 - Inicial</a>
+    </li>
+    <li>
+      <a href="TCAC1-EditorialA.html">Editorial Contest 1 - Avanzado</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="daily-problem.html">Problema del día</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Clase 21: 3 Dynamic Programming Classic Problems</h1>
+<h4 class="author">GPC-UNI Resto del Mundo</h4>
+<h4 class="date">20-06-2020</h4>
+
+</div>
+
+
+<div id="conteo-de-subarreglos-de-una-función-invertible" class="section level1">
+<h1>Conteo de subarreglos de una función invertible</h1>
+<p>Supongamos que nos dan un arreglo de enteros <span class="math inline">\(a\)</span> con tamaño <span class="math inline">\(n\)</span> y nos piden hallar la cantidad de subarreglos de <span class="math inline">\(a\)</span> tales que la suma de sus elementos es un múltiplo de <span class="math inline">\(m\)</span>.</p>
+<p>Usando fuerza bruta podríamos obtener un mínimo de <span class="math inline">\(O(n^{2})\)</span> para generar todos los arreglos que empiecen o terminen en una posición fijada.</p>
+<p>Claramente, <span class="math inline">\(O(n^{2})\)</span> es demasiado tiempo para <span class="math inline">\(n = 10^{5}\)</span>, por lo que debemos buscar una alternativa.</p>
+<p>Dado que un subarreglo es el sufijo de un prefijo, podemos decir que la suma de los elementos de un subarreglo es la diferencia de dos prefijos, de esta manera definimos los prefijos:</p>
+<p><span class="math display">\[ prefix_{0} = 0 \]</span> <span class="math display">\[ prefix_{i} = a_{i} + prefix_{i-1}, i &gt; 0 \]</span></p>
+<p>Gracias a la forma anterior, podemos decir que la suma de los elementos del subarreglo <span class="math inline">\([l, r]\)</span> es <span class="math inline">\(prefix_{r} - prefix_{l - 1}\)</span>.</p>
+<p>Ahora, ya que la suma debe ser múltiplo de <span class="math inline">\(m\)</span>, tendremos que:</p>
+<p><span class="math display">\[ prefix_{r} - prefix_{l - 1} \equiv 0 \mod m \]</span></p>
+<p><span class="math display">\[ prefix_{r} \equiv prefix_{l - 1} \mod m \]</span></p>
+<p>Por lo que si fijamos el límite superior <span class="math inline">\(r\)</span> y mantenemos las frecuencias de todos los resultados de <span class="math inline">\(prefix_{i} \mod m\)</span> para todos los <span class="math inline">\(0 \leq i &lt; r\)</span>, podremos obtener todos los subarreglos en <span class="math inline">\(O(n\log{n})\)</span> si el módulo es tan grande que se deben guardar los resultados en un <code>map</code> (se puede obtener <span class="math inline">\(O(n)\)</span> con alta probabilidad usando <code>unordered_map</code>).</p>
+<p>Una implementación sería así:</p>
+<pre class="c++"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+int main(){
+    int n;
+    scanf(&quot;%d&quot;, &amp;n);
+    vector&lt;int&gt; a(n + 1, 0);
+    vector&lt;int&gt; prefix(n + 1, 0);
+    for(int i=1; i&lt;=n; i++){
+        scanf(&quot;%d&quot;, &amp;a[i]);
+        prefix[i] = (prefix[i-1] + a[i]) % m;
+    }
+    map&lt;int,int&gt; F;
+    F[prefix[0]] += 1;
+    long long ans = 0LL;
+    for(int i=1; i&lt;=n; i++){
+        ans += F[prefix[i]];
+        F[prefix[i]] += 1;
+    }
+    cout &lt;&lt; ans &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<p>Siempre es útil tener este tipo de planteamientos cuando nos piden hallar propiedades de subarreglos.</p>
+<p>El problema anterior fue muy fácil, así que piensen este reto:</p>
+<ul>
+<li>Dado un string <span class="math inline">\(s\)</span> de <span class="math inline">\(n\)</span> caracteres, determinar todos los substrings de <span class="math inline">\(s\)</span> tales que se pueden reordenar sus caracteres y obtener un palíndromo.</li>
+</ul>
+<div id="problemas-para-practicar-en-clase" class="section level2">
+<h2>Problemas para practicar en clase</h2>
+<ul>
+<li><a href="https://codeforces.com/contest/1109/problem/A">Sasha and a Bit of Relax</a></li>
+<li><a href="https://vjudge.net/problem/Gym-270304G">Palindrome Subarrays?</a></li>
+</ul>
+</div>
+</div>
+<div id="máximum-subarray-sum" class="section level1">
+<h1>Máximum Subarray Sum</h1>
+<p>Veamos un problema relacionado con el anterior. Dado un arreglo de enteros <span class="math inline">\(a\)</span> con tamaño <span class="math inline">\(n\)</span>, determinar la máxima suma de entre todos sus subarreglos.</p>
+<p>Notemos que, al igual que el problema anterior, podemos obtener una solución <span class="math inline">\(O(n^{2})\)</span> generando todos los subarreglos.</p>
+<p>Sin embargo, si planteamos este problema similar al anterior, tendremos fijo un <span class="math inline">\(r\)</span> y queremos:</p>
+<p><span class="math display">\[ \max\limits_{l \leq r}{\{prefix_{r} - prefix_{l - 1}\}} \]</span></p>
+<p>Ya que <span class="math inline">\(l \leq r\)</span> entonces <span class="math inline">\(l - 1 &lt; r\)</span>, así que podemos decir <span class="math inline">\(l&#39; = l - 1\)</span> y buscaremos:</p>
+<p><span class="math display">\[ \max\limits_{l&#39; &lt; r}{\{prefix_{r} - prefix_{l&#39;}\}} = prefix_{r} + \max\limits_{l&#39; &lt; r}{\{- prefix_{l&#39;}\}} \]</span></p>
+<p>Pero el máximo de <span class="math inline">\(-x\)</span> es el negativo del mínimo de <span class="math inline">\(x\)</span>, así que:</p>
+<p><span class="math display">\[ \max\limits_{l&#39; &lt; r}{\{prefix_{r} - prefix_{l&#39;}\}} = prefix_{r} - \min\limits_{l&#39; &lt; r}{\{ prefix_{l&#39;}\}} \]</span></p>
+<p>Por lo que nos basta saber cuál es el mínimo prefijo antes de <span class="math inline">\(r\)</span> y ese será el óptimo, esto lo podemos obtener y mantener en <span class="math inline">\(O(1)\)</span>, así que nuestra solución será <span class="math inline">\(O(n)\)</span>:</p>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+int main(){
+    int n;
+    scanf(&quot;%d&quot;, &amp;n);
+    vector&lt;int&gt; a(n + 1, 0);
+    vector&lt;long long&gt; prefix(n + 1, 0LL);
+    for(int i=1; i&lt;=n; i++){
+        scanf(&quot;%d&quot;, &amp;a[i]);
+        prefix[i] = prefix[i-1] + a[i];
+    }
+    long long ans = LLONG_MIN; // 0 si es válido el subarreglo vacio
+    long long minimo = 0LL;
+    for(int i=1; i&lt;=n; i++){
+        ans = max(ans, prefix[i] - minimo);
+        minimo = min(minimo, prefix[i]);
+    }
+    cout &lt;&lt; ans &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<p>Otra forma de analizar el problema también considera fijar el final del subarreglo, pero lo usaremos de otra manera:</p>
+<p>Definimos:</p>
+<ul>
+<li><span class="math inline">\(memo_{i}\)</span>: Máximo subarreglo que termina en <span class="math inline">\(i\)</span>.</li>
+</ul>
+<p>Entonces, tenemos solo dos opciones:</p>
+<ul>
+<li><p><span class="math inline">\(memo_{i} = a_{i}\)</span>, pues ese elemento solo es el máximo subarreglo</p></li>
+<li><p><span class="math inline">\(memo_{i} = a_{l} + a_{l+1} + \ldots + a_{i}\)</span>, pues existe un <span class="math inline">\(l &lt; i\)</span> tal que el subarreglo <span class="math inline">\([l, i]\)</span> es el máximo.</p></li>
+</ul>
+<p>Notemos que “Para que el elemento <span class="math inline">\(l\)</span> sea tomado hacia la izquierda de <span class="math inline">\(i\)</span>, primero deberemos tomar el <span class="math inline">\((i - 1)\)</span>”, por lo que analizamos:</p>
+<p><span class="math display">\[ X_{i-1} = a_{l} + a_{l+1} + \ldots + a_{i-1}, \text{ para algun }l &lt; i \]</span></p>
+<p>Y para que <span class="math inline">\(X_{i - 1} + a_{i}\)</span> sea máximo, ya que <span class="math inline">\(a_{i}\)</span> es constante para <span class="math inline">\(i\)</span>, se debe dar que <span class="math inline">\(X_{i - 1}\)</span> debe ser máximo.</p>
+<p>Ya que <span class="math inline">\(X_{i - 1}\)</span> es una “un subarreglo que termina en <span class="math inline">\((i - 1)\)</span> y que debe ser máximo”, claramente <span class="math inline">\(X_{i - 1} = memo_{i - 1}\)</span>, así que las segunda opción se vuelve:</p>
+<ul>
+<li><span class="math inline">\(memo_{i} = a_{i} + memo_{i - 1}\)</span>.</li>
+</ul>
+<p>Comparando las dos expresiones, tenemos que:</p>
+<p><span class="math display">\[ memo_{i} = \max{\{a_{i}, a_{i} + memo_{i - 1}\}} = a_{i} + \max{\{0, memo_{i-1}\}} \]</span></p>
+<p>Y de esta manera podemos obtener el resultado total en <span class="math inline">\(O(n)\)</span>.</p>
+</div>
+<div id="rod-cutting" class="section level1">
+<h1>Rod Cutting</h1>
+<p>Analicemos el siguiente problema:</p>
+<p>Dada una barra de longitud <span class="math inline">\(l\)</span> y una tabla de precios <span class="math inline">\(p_{i}\)</span> de manera que <span class="math inline">\(p_{i}\)</span> es la ganancia obtenida al vender una pieza de longitud <span class="math inline">\(i\)</span>. Si es posible realizar la cantidad de cortes enteros que uno desee, determine la máxima ganancia posible.</p>
+<p>Una solución con fuerza bruta nos daría una complejidad de <span class="math inline">\(O(2^{l-1})\)</span>, ya que hay <span class="math inline">\(l - 1\)</span> puntos para hacer los cortes y en cada uno tenemos dos opciones: cortar o no cortar en dicho punto.</p>
+<p>Deberemos plantear algunas observaciones:</p>
+<ol style="list-style-type: decimal">
+<li><p>Definimos <span class="math inline">\(memo_{i}\)</span> como una función que nos dará la ganancia máxima usando una barra de longitud <span class="math inline">\(i\)</span>. Nuestra respuesta será <span class="math inline">\(memo_{l}\)</span>.</p></li>
+<li><p><span class="math inline">\(l\)</span> se deberá expresar como una suma de cortes <span class="math inline">\(r_{i}\)</span>, es decir <span class="math inline">\(l = r_{1} + r_{2} + \ldots + r_{k}\)</span>.</p></li>
+<li><p>La ganancia obtenida será <span class="math inline">\(\sum\limits_{i = 1}^{k}p_{r_{i}}\)</span> en tal caso.</p></li>
+<li><p>Si fijamos el resultado de alguno de los cortes (por simplicidad, <span class="math inline">\(r_{1}\)</span>), tendremos una longitud restante de <span class="math inline">\(l - r_{1}\)</span>, la cual deberá ser distribuida de manera óptima también, pues:</p></li>
+</ol>
+<p><span class="math display">\[ memo_{l} = \max\limits_{0 &lt; r_{1} \leq l}{\{p_{r_{1}} + f(l - r_{1})\}} \]</span></p>
+<p>Pero ya que <span class="math inline">\(f(l - r_{1})\)</span> debe obtener la máxima ganancia usando una barra de longitud <span class="math inline">\(l - r_{1}\)</span>, esta función debe dar el mismo resultado que <span class="math inline">\(memo_{l - r_{1}}\)</span>:</p>
+<p><span class="math display">\[ memo_{l} = \max\limits_{0 &lt; r_{1} \leq l}{\{p_{r_{1}} + memo_{l - r_{1}}\}} \]</span></p>
+<p>Y si llenamos los resultados en un arreglo <span class="math inline">\(memo[l]\)</span> por <span class="math inline">\(l\)</span> ascendente, obtendremos un algoritmo <span class="math inline">\(O(l^{2})\)</span>:</p>
+<pre class="c++"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+int main(){
+    int l;
+    scanf(&quot;%d&quot;, &amp;l);
+    vector&lt;int&gt; p(l + 1, 0); // p_{0} = 0
+    vector&lt;long long&gt; memo(l + 1, 0LL); // memo_{0} = 0, los demás se asignaran la primera vez
+    for(int i=1; i&lt;=l; i++){
+        scanf(&quot;%d&quot;, &amp;p[i]);
+        memo[i] = p[i]; // caso r_{1} = i
+        for(int r_1=1; r_1&lt;i; r_1++){
+            memo[i] = max(memo[i], p[r_1] + memo[i - r_1]);
+        }
+    }
+    cout &lt;&lt; memo[l] &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<div id="link-para-enviar-la-solución-al-problema" class="section level2">
+<h2>Link para enviar la solución al problema:</h2>
+<ul>
+<li><a href="https://vjudge.net/problem/Gym-270304F">Rod Cutting</a></li>
+</ul>
+</div>
+</div>
+<div id="contest-semanal" class="section level1">
+<h1>Contest Semanal</h1>
+<p>Pueden entrar al contest mediante el siguiente <a href="https://vjudge.net/contest/379216">link</a></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

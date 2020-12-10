@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Miguel Miní" />
+
+
+<title>Meet in the middle</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/elevate-section-attrs-2.0/elevate-section-attrs.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GPC-UNI Resto del mundo</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="schedule.html">Cronograma</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Clases
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="class-01.html">Introducción</a>
+    </li>
+    <li>
+      <a href="class-02.html">Complejidades + STL</a>
+    </li>
+    <li>
+      <a href="class-03.html">Contest 1</a>
+    </li>
+    <li>
+      <a href="class-04.html">Teoría de números</a>
+    </li>
+    <li>
+      <a href="class-05.html">Fuerza bruta I</a>
+    </li>
+    <li>
+      <a href="class-06.html">Fuerza bruta II</a>
+    </li>
+    <li>
+      <a href="class-07.html">Contest 2</a>
+    </li>
+    <li>
+      <a href="class-08.html">Recursión</a>
+    </li>
+    <li>
+      <a href="class-09.html">Backtracking I</a>
+    </li>
+    <li>
+      <a href="class-10.html">Recapitulacion I</a>
+    </li>
+    <li>
+      <a href="class-11.html">Contest UNI-UTEC I</a>
+    </li>
+    <li>
+      <a href="class-12.html">Backtracking II</a>
+    </li>
+    <li>
+      <a href="class-13.html">Backtracking II</a>
+    </li>
+    <li>
+      <a href="class-14.html">Bitmask</a>
+    </li>
+    <li>
+      <a href="class-15.html">Introducción a Greedy</a>
+    </li>
+    <li>
+      <a href="class-16.html">7 Greedy Problems</a>
+    </li>
+    <li>
+      <a href="class-17.html">Meet in the middle</a>
+    </li>
+    <li>
+      <a href="class-18.html">Dynamic Programming</a>
+    </li>
+    <li>
+      <a href="class-19.html">Grafos</a>
+    </li>
+    <li>
+      <a href="class-20.html">Divide and Conquer</a>
+    </li>
+    <li>
+      <a href="class-21.html">DP Classics</a>
+    </li>
+    <li>
+      <a href="class-22.html">Max Flow Introduction</a>
+    </li>
+    <li>
+      <a href="class-23.html">Max Flow Algorithm</a>
+    </li>
+    <li>
+      <a href="class-24.html">Sparse Table</a>
+    </li>
+    <li>
+      <a href="class-25.html">Binary Indexed Tree</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    TC Argentina 2020
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="TCAC1-EditorialI.html">Editorial Contest 1 - Inicial</a>
+    </li>
+    <li>
+      <a href="TCAC1-EditorialA.html">Editorial Contest 1 - Avanzado</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="daily-problem.html">Problema del día</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Meet in the middle</h1>
+<h4 class="author">Miguel Miní</h4>
+<h4 class="date">03-03-2020</h4>
+
+</div>
+
+
+<div id="outline" class="section level2">
+<h2>outline</h2>
+<ul>
+<li><a href="#1">¿Qué es meet in the middle?</a>
+<ul>
+<li><a href="#2">Un algoritmo de fuerza bruta más inteligente</a></li>
+<li><a href="#3">Código</a></li>
+<li><a href="#4">Nueva Complejidad</a></li>
+</ul></li>
+<li><a href="#5">Baby Step Giant Step</a>
+<ul>
+<li><a href="#6">Código asumiendo n: primo <span class="math inline">\(O(\sqrt n \log n)\)</span></a></li>
+</ul></li>
+<li><a href="#7">problemas</a></li>
+</ul>
+</div>
+<div id="qué-es-meet-in-the-middle" class="section level2">
+<h2>¿Qué es meet in the middle?</h2>
+<p>Ya hemos estudiado el problema de la mochila, conocemos que este problema es NP, lo que quiere decir que no exsite una solución determinista y que no sea exponencial respecto a la cantidad de elementos.</p>
+<p>Problema: Dado <span class="math inline">\(n\)</span> elementos con pesos <span class="math inline">\(w_i\)</span> y valores <span class="math inline">\(v_i\)</span>, hallar un subconjunto de los elementos tal que su suma de pesos sea a lo mas <span class="math inline">\(C\)</span> y su valor sea máximo.</p>
+<p><span class="math display">\[\max\limits_{i=1}^n ~v_i x_i\]</span> <span class="math display">\[\sum\limits_{i=1}^n w_i x_i \le C\]</span> <span class="math display">\[x_i \in \{0, 1\}\]</span></p>
+<p>En resumen, conocemos que la complejidad es <span class="math inline">\(O\)</span>(<span class="math inline">\(2^n\)</span>) o <span class="math inline">\(O\)</span>(<span class="math inline">\(2^n n\)</span>), según como se implemente, pero ¿se puede mejorar?.</p>
+<div id="un-algoritmo-de-fuerza-bruta-más-inteligente" class="section level3">
+<h3>Un algoritmo de fuerza bruta más inteligente</h3>
+<p>Recordemos que cada conjunto lo podemos ver como un string de 0’s y 1’s con n elementos, pero eso nos quiere decir que se puede ver como dos string de 0’s y 1’s de tamaños <span class="math inline">\(\lfloor \frac{n}{2} \rfloor\)</span> y <span class="math inline">\(\lceil \frac{n}{2} \rceil\)</span>, respectivamente, los cuales hemos unido.</p>
+<p>Pero, ¿Cómo unirlos? Supongamos que el primer string tenga suma de pesos asociada de <span class="math inline">\(W\)</span>, entonces, debo encontrar de todos los posibles segundos strings que tengan suma de pesos a lo más <span class="math inline">\(C - W\)</span> el que tenga mayor suma de valores.</p>
+<p>Lo último podría ser también costoso, así que probemos lo siguiente, que sucede si ordenamos los conjuntos tanto de derecha y de izquierda de forma creciente respecto a la suma de pesos, sean <span class="math inline">\(W_1^l \le W_2^l \le \dots \le W_m^l\)</span> y <span class="math inline">\(W_1^r \le W_2^r \le \dots \le W_p^r\)</span>. Entonces, al buscar por <span class="math inline">\(W_1^l\)</span> buscamos por todos los que son menores o iguales a <span class="math inline">\(C - W_1^l\)</span> en el lado derecho, eso quiere decir que al buscar el siguiente en el lado izquierdo, estoy consultando por menos en el lado derecho.</p>
+<p align="center">
+<img src="images/class-17/mitm.webp" title="fig:" style="height:10cm" alt="conjuntos ordenados L y R" />
+</p>
+<p>Para finalizar, para poder lograr una buena complejidad, le asignamos al k-ésimo elemento el máximo posible suma de valores de los k primeros elementos.</p>
+</div>
+<div id="código" class="section level3">
+<h3>Código</h3>
+<pre class="cpp"><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main() {
+  inr n, C;
+  cin &gt;&gt; n &gt;&gt; C;
+  vector&lt;int&gt; w(n), v(n);
+  for (int i = 0; i &lt; n; ++i) {
+    cin &gt;&gt; w[i] &gt;&gt; v[i];
+  }
+  int m = n/2, p = (n+1)/2;
+  vector&lt;pair&lt;int, int&gt;&gt; L, R;
+  for (int s = 0; s &lt; 1&lt;&lt;m; ++s) {
+    int W = 0, V = 0;
+    for (int i = 0; i &lt; m; ++i) {
+      if (s &amp; (1&lt;&lt;i)) {
+        W += w[i];
+        V += v[i];
+      }
+    }
+    L.push_back({W, V});
+  }
+  for (int s = 0; s &lt; 1&lt;&lt;p; ++s) {
+    int W = 0, V = 0;
+    for (int i = 0; i &lt; p; ++i) {
+      if (s &amp; (1&lt;&lt;i)) {
+        W += w[m + i];
+        V += v[m + i];
+      }
+    }
+    R.push_back({W, V});
+  }
+  sort(L.begin(), L.end());
+  sort(R.begin(), R.end());
+  int mx = -1e9;
+  for (auto&amp; e : R) {
+    e.second = max(e.second, mx);
+    mx = e.second;
+  }
+  int ans = -1e9;
+  for (int l = 0, r = R.size() - 1; l &lt; L.size(); ++l) {
+    while (r &gt; 0 and R[r].first + L[l].first &gt; C) r -= 1;
+    if (R[r].first + L[l].first &lt;= C) {
+      ans = max(ans, R[r].second + L[l].second);
+    }
+  }
+  cout &lt;&lt; ans &lt;&lt; endl;
+  return 0;
+}</code></pre>
+</div>
+<div id="nueva-complejidad" class="section level3">
+<h3>Nueva complejidad</h3>
+<p>Qué tanto ha mejorado la complejidad de nuestro anterior algoritmo?, bueno, hemos generado solo conjuntos de a lo más tamaño <span class="math inline">\(\lceil \frac{n}{2} \rceil\)</span> lo que equivale a una complejidad de <span class="math inline">\(O({\sqrt2}^n n)\)</span>, y ordenalos toma lo mismo, al final hacemos un for y tanto <span class="math inline">\(l\)</span> como <span class="math inline">\(r\)</span> recorren todos los elementos una vez. por tanto la complejidad es <span class="math inline">\(O({\sqrt2}^n n)\)</span>. Por tanto podriamos abordar problemas con <span class="math inline">\(n = 44\)</span> aproximadamente.</p>
+</div>
+</div>
+<div id="baby-step-giant-step" class="section level2">
+<h2>Baby Step Giant Step</h2>
+<p>Meet in the middle es un tema relativamente complicado, hay que ser muy ingenioso para luego de partir el problema, poder unilos.</p>
+<p>Problema: Dados <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> y <span class="math inline">\(n\)</span> con mcd(<span class="math inline">\(a\)</span>, <span class="math inline">\(n\)</span>) <span class="math inline">\(= 1\)</span> hallar <span class="math inline">\(m\)</span>, si existe, que cumpla: <span class="math display">\[a^m \equiv b \mod n\]</span></p>
+<p>En primer lugar <span class="math inline">\(a^m\)</span> no toma muchos valores, es claro que no puede tomar más de n valores, y todos los valores distintos se pueden hallar en el conjunto <span class="math inline">\(\{0, 1, \dots, n-1\}\)</span></p>
+<p>Para resolver este problema sin iterar sobre todo <span class="math inline">\(m\)</span>, haremos el siguiente truco: Todo <span class="math inline">\(m\)</span> se puede expresar como <span class="math inline">\(m = d q + r\)</span>, con <span class="math inline">\(0 \le r &lt; d\)</span>. Lo que quiere decir que si nosotros escogemos <span class="math inline">\(d = sqrt(n)\)</span>, puedo ver que <span class="math inline">\(q\)</span> y <span class="math inline">\(r\)</span> no superan <span class="math inline">\(d\)</span>.</p>
+<p>Eso quiere decir que yo puedo tener el siguiente problema: hallar <span class="math inline">\(q\)</span> y <span class="math inline">\(r\)</span> tal que:</p>
+<p><span class="math display">\[a^{d q + r} = b \mod n\]</span> <span class="math display">\[(a^d)^q a^r = b \mod n\]</span> <span class="math display">\[(a^d)^q = b (a^{-1})^r \mod n\]</span></p>
+<p>Esto quiere decir que por cada <span class="math inline">\((a^d)^q\)</span>, debo buscar si existe el mismo valor expresado como <span class="math inline">\(b(a^{-1})^r\)</span>.</p>
+<div id="código-asumiendo-n-primo-osqrt-n-log-n" class="section level3">
+<h3>Código asumiendo n: primo <span class="math inline">\(O(\sqrt n \log n)\)</span></h3>
+<pre class="cpp"><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int mul(long long a, int b, int n) {
+  return a * b % n;
+}
+
+int ex(int a, int b, int n) {
+  int r = 1;
+  while (r &gt; 0) {
+    if (b&amp;1) r = mul(r, a, n);
+    a = mul(a, a, n);
+    b &gt;&gt;= 1;
+  }
+  return r;
+}
+
+int baby_step_giant_step(int a, int b, int n) {
+  int d = sqrt(n) + 1;
+  map&lt;int, int&gt; adq;
+  int ad = ex(a, d, n);
+  int pot = 1;
+  for (int q = 0; q &lt; d; ++q) {
+    adq[pot] = q;
+    pot = mul(pot, ad);
+  }
+  int inva = ex(a, n-2, n);
+  pot = 1;
+  for (int r = 0; r &lt; d; ++r) {
+    int t = mul(b, pot);
+    if (adq.count(t)) {
+      return adq[t] * d + r;
+    }
+    pot = mul(pot, inva);
+  }
+  return -1;
+}
+
+int main() {
+  int a, b, n;
+  cin &gt;&gt; a &gt;&gt; b &gt;&gt; n;
+  cout &lt;&lt; baby_step_giant_step(a, b, n) &lt;&lt; endl;
+  return 0;
+}</code></pre>
+</div>
+</div>
+<div id="problemas" class="section level2">
+<h2>problemas:</h2>
+<ol style="list-style-type: decimal">
+<li><p><a href="https://community.topcoder.com/stat?c=problem_statement&amp;pm=6742&amp;rd=10763">KnapsackProblem</a></p></li>
+<li><p><a href="https://codeforces.com/contest/1249/problem/C2">Good Numbers</a></p></li>
+<li><p><a href="https://codeforces.com/problemset/problem/1006/F">Xor-Paths</a></p></li>
+<li><p><a href="https://codeforces.com/contest/888/problem/E">Maximum Subsequence</a></p></li>
+<li><p><a href="https://codeforces.com/contest/799/problem/D">Field Expansion</a></p></li>
+<li><p><a href="https://codeforces.com/problemset/problem/490/D">Chocolate</a></p></li>
+<li><p><a href="https://codeforces.com/problemset/problem/457/A">Golden System</a></p></li>
+<li><p><a href="https://codeforces.com/problemset/problem/769/D">k-Interesting Pairs Of Integers</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
