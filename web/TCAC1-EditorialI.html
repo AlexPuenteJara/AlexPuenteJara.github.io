@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="GPC-UNI Resto del Mundo" />
+
+
+<title>Training Camp Argentina 2020 - Editorial Contest 1 Inicial</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GPC-UNI Resto del mundo</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="schedule.html">Cronograma</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Clases
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="class-01.html">Introducción</a>
+    </li>
+    <li>
+      <a href="class-02.html">Complejidades + STL</a>
+    </li>
+    <li>
+      <a href="class-03.html">Contest 1</a>
+    </li>
+    <li>
+      <a href="class-04.html">Teoría de números</a>
+    </li>
+    <li>
+      <a href="class-05.html">Fuerza bruta I</a>
+    </li>
+    <li>
+      <a href="class-06.html">Fuerza bruta II</a>
+    </li>
+    <li>
+      <a href="class-07.html">Contest 2</a>
+    </li>
+    <li>
+      <a href="class-08.html">Recursión</a>
+    </li>
+    <li>
+      <a href="class-09.html">Backtracking I</a>
+    </li>
+    <li>
+      <a href="class-10.html">Recapitulacion I</a>
+    </li>
+    <li>
+      <a href="class-11.html">Contest UNI-UTEC I</a>
+    </li>
+    <li>
+      <a href="class-12.html">Backtracking II</a>
+    </li>
+    <li>
+      <a href="class-13.html">Backtracking II</a>
+    </li>
+    <li>
+      <a href="class-14.html">Bitmask</a>
+    </li>
+    <li>
+      <a href="class-15.html">Introducción a Greedy</a>
+    </li>
+    <li>
+      <a href="class-16.html">7 Greedy Problems</a>
+    </li>
+    <li>
+      <a href="class-17.html">Meet in the middle</a>
+    </li>
+    <li>
+      <a href="class-18.html">Dynamic Programming</a>
+    </li>
+    <li>
+      <a href="class-19.html">Grafos</a>
+    </li>
+    <li>
+      <a href="class-20.html">Divide and Conquer</a>
+    </li>
+    <li>
+      <a href="class-21.html">DP Classics</a>
+    </li>
+    <li>
+      <a href="class-22.html">Max Flow Introduction</a>
+    </li>
+    <li>
+      <a href="class-23.html">Max Flow Algorithm</a>
+    </li>
+    <li>
+      <a href="class-24.html">Sparse Table</a>
+    </li>
+    <li>
+      <a href="class-25.html">Binary Indexed Tree</a>
+    </li>
+    <li>
+      <a href="class-26.html">Introducción a Strings - I</a>
+    </li>
+    <li>
+      <a href="class-27.html">Introducción a Strings - II</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    TC Argentina 2020
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="TCAC1-EditorialI.html">Editorial Contest 1 - Inicial</a>
+    </li>
+    <li>
+      <a href="TCAC1-EditorialA.html">Editorial Contest 1 - Avanzado</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="daily-problem.html">Problema del día</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Training Camp Argentina 2020 - Editorial Contest 1 Inicial</h1>
+<h4 class="author">GPC-UNI Resto del Mundo</h4>
+<h4 class="date">13-07-2020</h4>
+
+</div>
+
+
+<div id="a.-add-odd-or-substract-even" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/A">A. Add Odd or Substract Even</a></h2>
+<p>Para resolver este problema basta separar algunos casos:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(a = b\)</span>, entonces la respuesta es 0.</p></li>
+<li><p><span class="math inline">\(a &lt; b\)</span>, entonces si <span class="math inline">\(b - a\)</span> es impar, la respuesta es 1; en caso contrario, es 2 (sumamos (b - a - 1) y luego 1).</p></li>
+<li><p><span class="math inline">\(a &gt; b\)</span>, entonces si <span class="math inline">\(a - b\)</span> es par, la respuesta es 1; en caso contrario, es 2 (restamos <span class="math inline">\(a - b + 1\)</span> y luego sumamos <span class="math inline">\(1\)</span>).</p></li>
+</ol>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample1" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+int a, b;
+
+int main(){
+    int t;
+    scanf(&quot;%d&quot;, &amp;t);
+    while(t--){
+        scanf(&quot;%d %d&quot;, &amp;a, &amp;b);
+        if(a == b) puts(&quot;0&quot;);
+        else{
+            if(a &lt; b) puts((a &amp; 1)^(b &amp; 1)? &quot;1&quot; : &quot;2&quot;);
+            else puts((a &amp; 1)^(b &amp; 1)? &quot;2&quot; : &quot;1&quot;);
+        }
+    }
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="b.-new-year-and-permutation" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/B">B. New Year and Permutation</a></h2>
+<p>Para este problema basta con considerar los subarreglos de tamaño <span class="math inline">\(L\)</span> y considerar su aporte a la respuesta:</p>
+<p>Supongamos que hemos fijado <span class="math inline">\(l\)</span> y <span class="math inline">\(r = l + L - 1\)</span>, entonces notamos que si deseamos que un subarreglo de mi permutación aporte, necesitamos que exista un subarreglo de tamaño <span class="math inline">\(L\)</span> tal que contenga a <span class="math inline">\(l\)</span> como mínimo y a <span class="math inline">\(r\)</span> como máximo.</p>
+<p><strong>Observación 1:</strong> Solamente se puede dar lo anterior cuando el subarreglo contiene todos los elementos en el rango <span class="math inline">\([l, r]\)</span>.</p>
+<p><strong>Observación 2:</strong> La cantidad de veces que se puede dar este caso en una permutación fijada es:</p>
+<p><span class="math display">\[ (\text{Posiciones posibles}) \cdot (\text{Formas de reordenar los L elementos}) \cdot (\text{Formas de reordenar el resto de elementos}) \]</span></p>
+<p>Entonces, notamos que <span class="math inline">\(\text{Posiciones posibles} = n - L + 1\)</span>, <span class="math inline">\(\text{Formas de reordenar los L elementos} = L!\)</span> y <span class="math inline">\(\text{Formas de reordenar el resto de elementos} = (n - L)!\)</span>.</p>
+<p>Ahora, esto lo hemos hecho fijando en <span class="math inline">\(L\)</span> y el <span class="math inline">\(l\)</span>, pero fijar ambos valores nos daría una complejidad de <span class="math inline">\(O(n^{2})\)</span>. Entonces notamos que la expresión no depende de <span class="math inline">\(l\)</span>, sino de <span class="math inline">\(L\)</span>, así que la respuesta parcial será multiplicar la cantidad de formas de elegir <span class="math inline">\(l\)</span> a la expresión anterior. La cantidad de formas de elegir <span class="math inline">\(l\)</span> también es <span class="math inline">\((n - L + 1)\)</span>, así que:</p>
+<p><span class="math display">\[ aporte(L) = (n - L + 1)^{2} \cdot L! \cdot (n - L)! \]</span></p>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample2" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample2" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+const int N = 250000+5;
+
+int n, MOD;
+int f[N];
+
+int add(int a, int b, int m = MOD){
+    return (a + b) % m;
+}
+
+int mul(long long a, long long b, int m = MOD){
+    return (a * b) % m;
+}
+
+void init(){
+    f[0] = 1;
+    for(int i = 1; i &lt;= n; i++) f[i] = mul(f[i-1], i);
+}
+
+int solve(int L){
+    return mul(mul(n - L + 1, n - L + 1), mul(f[L], f[n - L]));
+}
+
+int main(){
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;MOD);
+    init();
+    int ans = 0;
+    for(int L = 1; L &lt;= n; L++){
+        ans = add(ans, solve(L));
+    }
+    printf(&quot;%d\n&quot;, ans);
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="c.-distributed-join" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/C">C. Distributed Join</a></h2>
+<p>Una de las estrategias óptimas en este problema es ubicar un nodo <span class="math inline">\(a\)</span> con la mayor cantidad de filas de información en alguno de los clúster, luego mover toda la información del cluster al que no pertenece <span class="math inline">\(a\)</span> hacia <span class="math inline">\(a\)</span>. Luego de esto basta intentar para el resto de nodos del clúster de <span class="math inline">\(a\)</span> la mejor de dos opciones: Mover toda la información del otro cluster a esa posición o mover la información del nodo actual al <span class="math inline">\(a\)</span>.</p>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample3" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe, idea por Fischer)
+</p>
+</div>
+<div id="codeExample3" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+const int N = 100000+5;
+
+typedef long long ll;
+
+int n;
+int m;
+int a[N];
+int b[N];
+
+long long solve(){
+    sort(a + 1, a + 1 + n);
+    sort(b + 1, b + 1 + m);
+    ll sumA = accumulate(a + 1, a + 1 + n, 0LL);
+    ll sumB = accumulate(b + 1, b + 1 + m, 0LL);
+    ll ansA = sumB, ansB = sumA;
+    for(int i = 1; i &lt; n; i++){
+        ansA += min(1LL * a[i], sumB);
+    }
+    for(int i = 1; i &lt; m; i++){
+        ansB += min(1LL * b[i], sumA);
+    }
+    return min(ansA, ansB);
+}
+
+int main(){
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+    for(int i = 1; i &lt;= n; i++) scanf(&quot;%d&quot;, a+i);
+    for(int i = 1; i &lt;= m; i++) scanf(&quot;%d&quot;, b+i);
+    printf(&quot;%lld\n&quot;, solve());
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="d.-restaurant-tables" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/D">D. Restaurant Tables</a></h2>
+<p>Para resolver el problema basta con implementar según el enunciado.</p>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample4" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample4" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+int n, a, b;
+
+int main(){
+    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;a, &amp;b);
+    int ans = 0;
+    int c = 0;
+    for(int i = 1; i &lt;= n; i++){
+        int x;
+        scanf(&quot;%d&quot;, &amp;x);
+        if(x == 1){
+            if(a == 0){
+                if(b == 0){
+                    if(c == 0) ans += 1;
+                    else{
+                        c -= 1;
+                    }
+                }
+                else{
+                    b -= 1;
+                    c += 1;
+                }
+            }
+            else a -= 1;
+        }
+        else{
+            if(b == 0) ans += 2;
+            else b -= 1;
+        }
+    }
+    printf(&quot;%d\n&quot;, ans);
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="e.-alice-bob-and-chocolate" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/E">E. Alice, Bob and Chocolate</a></h2>
+<p>Para resolver este problema bastaba simular usando two pointers y siempre darle prioridad al que coma primero o, si hay empate, a Alice.</p>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample5" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample5" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+const int N = 100000+5;
+
+int n;
+int a[N];
+
+int main(){
+    scanf(&quot;%d&quot;, &amp;n);
+    for(int i=1; i&lt;=n; i++){
+        scanf(&quot;%d&quot;, a+i);
+    }
+    int cL = 0, cR = 0;
+    int L = 1, R = n;
+    int tL = 0, tR = 0;
+    while(L &lt;= R){
+        if(tL &lt;= tR){
+            cL += 1;
+            tL += a[L];
+            L += 1;
+        }
+        else{
+            cR += 1;
+            tR += a[R];
+            R -= 1;
+        }
+    }
+    printf(&quot;%d %d\n&quot;, cL, cR);
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="f.-wet-shark-and-blocks" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/F">F. Wet Shark and Blocks</a></h2>
+<p>Para resolver este problema basta con modelarlo como un grafo dirigido (posibles multiaristas) de residuos <span class="math inline">\(G = (V, E)\)</span> definido de la siguiente forma:</p>
+<p><span class="math display">\[ V = \{0, 1, \ldots, x-1\} \]</span></p>
+<p><span class="math display">\[ E = \{(u, v) \text{ existe una vez por cada }a_{i} \text{ tal que }10u + a_{i} \equiv v \mod x\} \]</span></p>
+<p>Entonces, lo que se busca sobre este grafo es la cantidad de caminos de longitud <span class="math inline">\(b\)</span> desde el nodo <span class="math inline">\(0\)</span> al nodo <span class="math inline">\(k\)</span>. Esto se puede calcular con exponenciación rápida de matrices, considerando la matriz de adyacencia ponderada definida como:</p>
+<p><span class="math display">\[ M_{ij} = \text{Cantidad de aristas }(i, j)\text{ en E} \]</span></p>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample6" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample6" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+const int N = 100+5;
+const int MOD = 1000000000+7;
+
+int add(int a, int b, int m = MOD){
+    return (a + b) % m;
+}
+
+int mul(long long a, long long b, int m = MOD){
+    return (a * b) % m;
+}
+
+int n, b, k, x;
+int M[N][N];
+int C[N][N];
+int R[N][N];
+int frec[N];
+
+void multiply(int type){
+    for(int i = 0; i &lt; x; i++){
+        for(int j = 0; j &lt; x; j++){
+            C[i][j] = 0;
+            for(int p = 0; p &lt; x; p++){
+                if(type == 1){
+                    C[i][j] = add(C[i][j], mul(M[i][p], R[p][j]));
+                }
+                else{
+                    C[i][j] = add(C[i][j], mul(M[i][p], M[p][j]));
+                }
+            }
+        }
+    }
+    for(int i = 0; i &lt; x; i++){
+        for(int j = 0; j &lt; x; j++){
+            if(type == 1) R[i][j] = C[i][j];
+            else M[i][j] = C[i][j];
+        }
+    }
+}
+
+void fastexp(int e){
+    while(e &gt; 0){
+        if(e &amp; 1) multiply(1);
+        multiply(0);
+        e &gt;&gt;= 1;
+    }
+}
+
+int main(){
+    scanf(&quot;%d %d %d %d&quot;, &amp;n, &amp;b, &amp;k, &amp;x);
+    for(int i = 1; i &lt;= n; i++){
+        int d;
+        scanf(&quot;%d&quot;, &amp;d);
+        frec[d] += 1;
+    }
+    for(int r1 = 0; r1 &lt; x; r1++){
+        for(int d = 1; d &lt; 10; d++){
+            int r3 = add(mul(r1, 10, x), d, x);
+            M[r1][r3] += frec[d];
+        }
+    }
+    for(int i = 0; i &lt; x; i++){
+        for(int j = 0; j &lt; x; j++){
+            R[i][j] = i == j;
+        }
+    }
+    fastexp(b);
+    printf(&quot;%d\n&quot;, R[0][k]);
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="g.-multihedgehog" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/G">G. Multihedgehog</a></h2>
+<p>Para resolver este problema debemos usar una pista que nos da el enunciado: Al iniciar el procedimiento, <strong>se elige un nodo como centro</strong> y desde ahí se desprenden el resto de los hedgehog.</p>
+<p><strong>Observación clave:</strong> El centro del hedgehog es el centro del árbol, ya que por la forma de construcción siempre se crean nuevas hojas tomándolo como referencia, así que todas estas están en el mismo nivel.</p>
+<p>Gracias a la observación clave nos basta hallar el centro del árbol, con lo que hay dos casos:</p>
+<ol style="list-style-type: decimal">
+<li><p>Hay un solo centro: Podemos mandar un DFS para verificar que cumpla con la estructura.</p></li>
+<li><p>Hay dos centros: No es posible, ya que solo debe haber 1 para que cumpla.</p></li>
+</ol>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample7" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample7" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+const int N = 100000+5;
+
+int n, k;
+int h[N];
+int deg[N];
+int sum[N];
+bool vis[N];
+vector&lt;int&gt; G[N];
+
+bool DFS(int u, int depth, int p = -1){
+    if(depth == 0) return G[u].size() == 1;
+    int deg = 0;
+    bool ans = true;
+    for(int v : G[u]){
+        if(v == p) continue;
+        if(!DFS(v, depth - 1, u)) ans = false;
+        deg += 1;
+    }
+    return deg &gt;= 3 and ans;
+}
+
+bool solve(){
+    vector&lt;int&gt; frontier;
+    int cnt = n;
+    for(int i = 1; i &lt;= n; i++){
+        h[i] = n;
+        if(deg[i] == 1){
+            deg[i] = 0;
+            h[i] = 0;
+            vis[i] = true;
+            frontier.emplace_back(i);
+        }
+    }
+    while(!frontier.empty() and cnt &gt;= 2){
+        vector&lt;int&gt; new_frontier;
+        for(auto x : frontier){
+            cnt -= 1;
+            for(int v : G[x]){
+                if(vis[v]) continue;
+                deg[v] -= 1;
+                if(deg[v] == 1){
+                    vis[v] = true;
+                    new_frontier.emplace_back(v);
+                    deg[v] = 0;
+                }
+            }
+        }
+        swap(frontier, new_frontier);
+    }
+    if(cnt == 0) return false;
+    if(frontier.empty()) return false;
+    return DFS(frontier.back(), k);
+}
+
+int main(){
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;k);
+    for(int i = 1; i &lt; n; i++){
+        int u, v;
+        scanf(&quot;%d %d&quot;, &amp;u, &amp;v);
+        G[u].emplace_back(v);
+        G[v].emplace_back(u);
+        deg[v] += 1;
+        deg[u] += 1;
+    }
+    puts(solve()?&quot;Yes&quot;:&quot;No&quot;);
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="h.-games-with-rectangle" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/H">H. Games with Rectangle</a></h2>
+<p>Para resolver este problema bastaba notar que la elección de las dos dimensiones es independiente, así que podemos hallar la cantidad de formas de realizar <span class="math inline">\(k\)</span> movimientos sobre una base de tamaño <span class="math inline">\(n\)</span> y la cantidad de formas con una base <span class="math inline">\(m\)</span> y multiplicar dicho valor.</p>
+<p>Entonces, ¿Cómo hallamos la cantidad de formas de realizar <span class="math inline">\(k\)</span> movimientos sobre una base de tamaño <span class="math inline">\(n\)</span>? Podemos definir la siguiente función:</p>
+<p><span class="math display">\[ memo[k][n] = \text{Cantidad de formas de realizar k movimientos sobre una base de tamaño n} \]</span></p>
+<p>Ahora, podemos fijar el primer movimiento para obtener la base nueva y contar su aporte:</p>
+<p><span class="math display">\[ memo[k][n] = \sum\limits_{1 \leq l \leq n - 2}Aporte(n, l, k) \]</span></p>
+<p>Sin embargo, notamos que la función <span class="math inline">\(Aporte(n, l, k)\)</span> depende de la cantidad de posiciones que pueda tomar <span class="math inline">\(l\)</span> sobre la base <span class="math inline">\(n\)</span> cumpliendo las reglas y la cantidad de formas de realizar <span class="math inline">\(k - 1\)</span> movimientos con una base de tamaño <span class="math inline">\(l\)</span>:</p>
+<p><span class="math display">\[ Aporte(n, l, k) = memo[k-1][l] \cdot (n - 1 - l) \]</span></p>
+<p>Entonces si reemplazamos:</p>
+<p><span class="math display">\[ memo[k][n] = \sum\limits_{1 \leq l \leq n - 2}memo[k-1][l] \cdot (n - 1 - l) \]</span></p>
+<p><span class="math display">\[ memo[k][n] = (n - 1)\sum\limits_{1 \leq l \leq n - 2}memo[k-1][l] - \sum\limits_{1 \leq l \leq n - 2}l\cdot memo[k-1][l] \]</span></p>
+<p>Ahora, si preprocesamos en <span class="math inline">\(O(n)\)</span> los resultados de la suma de <span class="math inline">\(\sum\limits_{1 \leq l \leq n - 2}memo[k-1][l]\)</span> y <span class="math inline">\(\sum\limits_{1 \leq l \leq n - 2}l\cdot memo[k-1][l]\)</span> por separado en arreglos <span class="math inline">\(suma[k-1][n-2]\)</span> y <span class="math inline">\(sump[k-1][n-2]\)</span> respectivamente, tendremos:</p>
+<p><span class="math display">\[ memo[k][n] = (n-1)\cdot suma[k-1][n-2] - sump[k-1][n-2] \]</span></p>
+<p>Y así podremos resolver el problema en <span class="math inline">\(O(n^{2})\)</span>.</p>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample8" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample8" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+const int N = 1000+5;
+const int MOD = 1000000000+7;
+
+int add(int a, int b, int m = MOD){
+    return (a + b) % m;
+}
+
+int mul(long long a, long long b, int m = MOD){
+    return (a * b) % m;
+}
+
+int n, m, k;
+int memo[N][N];
+int suma[N][N];
+int sump[N][N];
+
+void get(int r, int limit){
+    for(int i = 1; i &lt;= limit; i++){
+        suma[r][i] = add(suma[r][i-1], memo[r][i]);
+        sump[r][i] = add(sump[r][i-1], mul(i, memo[r][i]));
+    }
+}
+
+void init(int limit){
+    for(int i = 1; i &lt;= limit; i++) memo[0][i] = 1;
+    for(int i = 1; i &lt;= k; i++){
+        get(i - 1, limit);
+        for(int l = 1; l &lt;= limit; l++){
+            memo[i][l] = add(mul(l - 1, suma[i-1][l-2]), MOD - sump[i-1][l-2]);
+        }
+    }
+}
+
+int main(){
+    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;m, &amp;k);
+    init(max(n, m));
+    printf(&quot;%d\n&quot;, mul(memo[k][n], memo[k][m]));
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="i.-array-with-odd-sum" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/I">I. Array with Odd Sum</a></h2>
+<p>Para resolver este problema basta con separar algunos casos posibles:</p>
+<ol style="list-style-type: decimal">
+<li><p>Si la suma ya es impar, la respuesta es &quot;YES&quot;.</p></li>
+<li><p>Si la suma es par, necesitamos poder cambiar la paridad de alguno de los elementos, así que la respuesta es &quot;YES&quot; solo si hay al menos 1 elemento par y 1 impar a la vez.</p></li>
+</ol>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample9" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample9" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+int n;
+
+int main(){
+    int t;
+    scanf(&quot;%d&quot;, &amp;t);
+    while(t--){
+        scanf(&quot;%d&quot;, &amp;n);
+        int sum = 0;
+        int odd = 0, even = 0;
+        for(int i=1; i&lt;=n; i++){
+            int x;
+            scanf(&quot;%d&quot;, &amp;x);
+            sum = (sum + x) % 2;
+            if(x &amp; 1) odd += 1;
+            else even += 1;
+        }
+        if(sum) puts(&quot;YES&quot;);
+        else{
+            puts(odd and even? &quot;YES&quot;:&quot;NO&quot;);
+        }
+    }   
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="j.-photographer" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/J">J. Photographer</a></h2>
+<p>Para resolver este problema bastaba notar que el costo de memoria por cada cliente era fijo, así que podíamos ordenar los clientes por costo ascendente e ir tomando pedidos hasta que ya no nos alcance la memoria.</p>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample10" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample10" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+const int N = 100000+5;
+
+int n, d;
+int a, b;
+long long c[N];
+
+int main(){
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;d);
+    scanf(&quot;%d %d&quot;, &amp;a, &amp;b);
+    for(int i = 1; i &lt;= n; i++){
+        int x, y;
+        scanf(&quot;%d %d&quot;, &amp;x, &amp;y);
+        c[i] = 1LL * x * a + 1LL * y * b;
+    }
+    vector&lt;int&gt; p(n);
+    iota(p.begin(), p.end(), 1);
+    sort(p.begin(), p.end(), [&amp;] (int i, int j){
+        return c[i] &lt; c[j];
+    });
+    vector&lt;int&gt; ans;
+    for(int i : p){
+        if(d &gt;= c[i]){
+            ans.emplace_back(i);
+            d -= c[i];
+        }
+    }
+    printf(&quot;%d\n&quot;, (int)ans.size());
+    for(int i = 0; i &lt; ans.size(); i++){
+        printf(&quot;%d%c&quot;, ans[i], &quot; \n&quot;[i + 1 == ans.size()]);
+    }
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="k.-short-substrings" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/K">K. Short Substrings</a></h2>
+<p>Para resolver este problema debemos notar que la estructura de la cadena <span class="math inline">\(b\)</span> es la siguiente:</p>
+<p><span class="math display">\[ b = a_{1} a_{2} a_{2} a_{3} a_{3} \ldots a_{n-2} a_{n-1} a_{n-1} a_{n} \]</span></p>
+<p>De manera que nuestra cadena <span class="math inline">\(a\)</span> se puede obtener con el siguiente procedimiento:</p>
+<ol style="list-style-type: decimal">
+<li><p>Imprimos <span class="math inline">\(b_{1}\)</span></p></li>
+<li><p>Iteramos sobre las posiciones pares (o impares) en el rango <span class="math inline">\([2, |b|-1]\)</span>, donde |b| es la longitud de <span class="math inline">\(b\)</span>.</p></li>
+<li><p>Imprimimos <span class="math inline">\(b_{|b|}\)</span>.</p></li>
+</ol>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample11" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample11" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+const int N = 100+5;
+
+int n;
+char s[N];
+
+int main(){
+    int t;
+    scanf(&quot;%d&quot;, &amp;t);
+    while(t--){
+        scanf(&quot;%s&quot;, s);
+        n = strlen(s);
+        putchar(s[0]);
+        for(int i = 1; i + 1 &lt; n; i += 2){
+            putchar(s[i]);
+        }
+        putchar(s[n-1]);
+        putchar(&#39;\n&#39;);
+    }
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+<div id="l.-relay-race" class="section level2">
+<h2><a href="https://codeforces.com/group/j1UosVRZar/contest/287327/problem/L">L. Relay Race</a></h2>
+<p>Para resolver este problema bastaba reducir la respuesta a hallar dos caminos de <span class="math inline">\((0, 0)\)</span> a <span class="math inline">\((n-1, n-1)\)</span> tal que contemos una sola vez cada elemento en la suma.</p>
+<p>Entonces, podemos plantear el tener 2 caminos que actualmente estén en las posiciones <span class="math inline">\((x_{1}, y_{1})\)</span> y <span class="math inline">\((x_{2}, y_{2})\)</span> y que se cumpla que <span class="math inline">\((x_{1}, y_{1}) \leq (x_{2}, y_{2})\)</span> por comparación lexicográfica (de manera que los caminos no se crucen estrictamente pero si puedan encontrarse en puntos en común).</p>
+<p>Esto nos da una solución <span class="math inline">\(O(n^{4})\)</span> con <span class="math inline">\(O(n^{4})\)</span> de memoria, lo cual no nos basta. Sin embargo, ya que nuestro camino es monótono, tendremos que <span class="math inline">\(x + y = pasos\)</span> en todo momento, así que si tenemos una de las coordenadas y el número de pasos realizados, podemos deducir la coordenada faltante.</p>
+<p>Una opción sería tener un DP con parámetros <span class="math inline">\((pasos, x_{1}, x_{2})\)</span>, pero esto requeriría <span class="math inline">\((2 (n-1)\cdot(n-1)\cdot(n-1))\)</span> de memoria, lo cual puede darnos problemas con el ML, así que llevaremos los parámetros <span class="math inline">\((x_{1}, y_{1}, x_{2})\)</span>, ya que podemos deducir <span class="math inline">\(pasos = x_{1} + y_{1}\)</span>.</p>
+<p>Ya que tenemos nuestro DP definido, podemos simular las elecciones y maximizar la suma de las celdas visitadas sin contar doble.</p>
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample12" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por racsosabe)
+</p>
+</div>
+<div id="codeExample12" class="collapse">
+<pre class="cpp"><code>#include&lt;bits/stdc++.h&gt;
+using namespace::std;
+
+const int N = 300+5;
+const int inf = 1&lt;&lt;29;
+
+int n;
+int a[N][N];
+bool vis[N][N][N];
+int memo[N][N][N];
+int dx[] = {1, 0};
+int dy[] = {0, 1};
+
+bool validPos(int x, int y){
+    return x &gt;= 0 and y &gt;= 0 and x &lt; n and y &lt; n;
+}
+
+int DP(int x1, int y1, int x2){
+    int diag = x1 + y1;
+    int y2 = diag - x2;
+    if(diag == 2 * (n - 1)) return a[x1][y1];
+    if(vis[x1][y1][x2]) return memo[x1][y1][x2];
+    int ans = -inf;
+    for(int i = 0; i &lt; 2; i++){
+        int vx1 = x1 + dx[i];
+        int vy1 = y1 + dy[i];
+        if(!validPos(vx1, vy1)) continue;
+        for(int j = 0; j &lt; 2; j++){
+            int vx2 = x2 + dx[j];
+            int vy2 = y2 + dy[j];
+            if(!validPos(vx2, vy2)) continue;
+            if(make_pair(vx1, vy1) &lt;= make_pair(vx2, vy2)){
+                int cur = (x1 == x2 and y1 == y2? a[x1][y1] : a[x1][y1] + a[x2][y2]) + DP(vx1, vy1, vx2);
+                if(ans &lt; cur) ans = cur;
+            }
+        }
+    }
+    vis[x1][y1][x2] = true;
+    return memo[x1][y1][x2] = ans;
+}
+
+int main(){
+    scanf(&quot;%d&quot;, &amp;n);
+    for(int i = 0; i &lt; n; i++){
+        for(int j = 0; j &lt; n; j++){
+            scanf(&quot;%d&quot;, &amp;a[i][j]);
+        }
+    }
+    printf(&quot;%d\n&quot;, DP(0,0,0));
+    return 0;
+}</code></pre>
+</div>
+<!-- ends code -->
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

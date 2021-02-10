@@ -75,3 +75,9 @@ Entrenamiento de verano de programacion competitiva UNI Resto del mundo 2020
 - [Sparse Table](./class-24.html)
 
 - [Binary Indexed Tree](./class-25.html)
+
+## Semana 16
+
+- [Introducción a Strings - I](./class-26.html)
+
+- [Introducción a Strings - II](./class-27.html)
