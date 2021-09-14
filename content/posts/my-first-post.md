@@ -5,3 +5,5 @@ draft: flase
 description: "hOLA MUNDO"
 ---
 
+$a_2 +b_2 =c_2$
+
