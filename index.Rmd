@@ -1,7 +1,9 @@
 ---
 title: "index"
 output:
-  html_document: default
+  html_document: 
+    toc:TRUE
+    toc_float:TRUE
 date: "2023-11-27"
 ---
 
