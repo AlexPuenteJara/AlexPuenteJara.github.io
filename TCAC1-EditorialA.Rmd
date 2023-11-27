@@ -2,7 +2,10 @@
 title: "Training Camp Argentina 2020 - Editorial Contest 1 Avanzado"
 author: "GPC-UNI Resto del Mundo"
 date: "13-07-2020"
-output: html_document
+output:
+  html_document: default
+    toc:TRUE
+    toc_float:TRUE
 ---
 
 ```{r setup, include=FALSE}
