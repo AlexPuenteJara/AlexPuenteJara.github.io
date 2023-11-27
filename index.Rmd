@@ -1,5 +1,6 @@
 ---
 title: "index"
+subtitle:Bar Charts- RMarkdown
 output:
   html_document: 
     toc:TRUE
