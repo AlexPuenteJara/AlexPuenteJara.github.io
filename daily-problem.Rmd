@@ -1,0 +1,2198 @@
+---
+title: "Daily Problem"
+---
+
+```{r setup, include=FALSE}
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+```
+
+If you are a beginner reading the material, you can start with a 26-day training of solving one problem per day.
+
+### [Contest Link](https://vjudge.net/contest/351983)
+
+<!-- Begins problem Z -->
+<div class="card" id="Z">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemZ" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 26: Air Conditioner</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemZ" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/problemset/problem/1304/C" target="_blank">Air Conditioner</a>
+
+Sort the elements by its time, then you init with a valid range $[m, m]$ and
+for each element update and get the new valid range. If you get an invalid
+range in some element there is no answer.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemZ" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemZ" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+
+struct Client {
+  ll t, l, h;
+  Client () {}
+  bool operator < (const Client& other) {
+    if (t != other.t) return t < other.t;
+    return l < other.l;
+  }
+};
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int q;
+  cin >> q;
+  while (q--) {
+    ll n, m;
+    cin >> n >> m;
+    vector <Client> arr(n);
+    for (int i = 0; i < n; i++) {
+      cin >> arr[i].t >> arr[i].l >> arr[i].h;
+    }
+    sort(all(arr));
+    pair <ll, ll> cur(m, m);
+    bool ok = true;
+    ll prev = 0;
+    for (auto elem: arr) {
+      ll d = elem.t - prev;
+      pair <ll, ll> go(cur.first - d, cur.second + d);
+      ll l = max(go.first, elem.l);
+      ll r = min(go.second, elem.h);
+      if (l > r) ok = false;
+      cur.first = l;
+      cur.second = r;
+      prev = elem.t;
+    }
+    if (ok) cout << "YES\n";
+    else cout << "NO\n";
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem Z -->
+
+
+
+
+
+<!-- Begins problem Y -->
+<div class="card" id="Y">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemY" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 25: Longest Palindrome</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemY" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/problemset/problem/1304/B" target="_blank">Longest Palindrome</a>
+
+Let the given words be $s_1, s_2, \dots, s_n$. Then if we have $s_i = s_j^R$ we
+just add them to our answer. Finally, we search if there is a word $s_i = s_i^R$ than we can
+put in the middle of our answer.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemY" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemY" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+     
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n, m;
+  cin >> n >> m;
+  vector <string> s(n);
+  vector <string> rs(n);
+  for (int i = 0; i < n; i++) {
+    cin >> s[i];
+    rs[i] = s[i];
+    reverse(all(rs[i]));
+  }
+  vector <bool> take(n, false);
+  vector <pii> ans;
+  for (int i = 0; i < n; i++) {
+    for (int j = i + 1; j < n; j++) {
+      if (take[i] or take[j]) continue;
+      if (s[i] == rs[j]) {
+        take[i] = take[j] = true;
+        ans.pb(pii(i, j));
+      }
+    }
+  }
+  string add = "";
+  for (int i = 0; i < n; i++) {
+    if (take[i]) continue;
+    if (s[i] == rs[i]) {
+      add = s[i];
+      break;
+    }
+  }
+  string ret = "";
+  string a = "", b = "", c = "";
+  for (auto pp: ans) {
+    a += s[pp.first];
+  }
+  b = add;
+  c = a;
+  reverse(all(c));
+  ret = a + b + c;
+  cout << sz(ret) << '\n';
+  cout << ret << '\n';
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem Y -->
+
+
+
+
+<!-- Begins problem X -->
+<div class="card" id="X">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemX" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 24: The ? 1 ? 2 ? ... ? n = k problem</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemX" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=966" target="_blank">The ? 1 ? 2 ? ... ? n = k problem</a>
+
+First, if $n = 0$ the answer is $3 (-1 -2 + 3)$, else let $x$ be the minimum
+value such that $sum = 1 + 2 + 3 + \dots + x \geq n$. Then if we substract the
+number $y \leq x$ we will have $sum - 2 \cdot y$. So, we need the the
+difference between $sum - n$ to the even, else we should keep increasing $sum$.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemX" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemX" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef pair <ll, ll> pll;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+typedef vector <pii> vpii;
+typedef vector <pll> vpll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int tc;
+  cin >> tc;
+  bool first = true;
+  while (tc--) {
+    if (not first) cout << '\n';
+    first = false;
+    int n;
+    cin >> n;
+    if (n == 0) {
+      cout << 3 << '\n';
+      continue;
+    }
+    n = abs(n);
+    int sum = 0;
+    int x = 1;
+    while (sum < n) {
+      sum += x;
+      x++;
+    }
+    x--;
+    while ((sum - n) % 2 == 1) {
+      x++;
+      sum += x;
+    }
+    cout << x << '\n';
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem X -->
+
+
+
+
+
+<!-- Begins problem W -->
+<div class="card" id="W">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemW" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 23: Assigning to Classes</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemW" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/problemset/problem/1300/B" target="_blank">Assigning to Classes</a>
+
+Let sort the array, then in any possible partition it holds that $ans \geq a_{n + 1} - a_n$ (**can you prove it?**), but in we put the student $a_n$ alone in a class, then we get $ans = a_{n + 1} - a_n$.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemW" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemW" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef pair <ll, ll> pll;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+typedef vector <pii> vpii;
+typedef vector <pll> vpll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int tc;
+  cin >> tc;
+  while (tc--) {
+    int n;
+    cin >> n;
+    vi a(2 * n);
+    for (int& elem: a) cin >> elem;
+    sort(all(a));
+    cout << a[n] - a[n - 1] << '\n';
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem W -->
+
+
+
+
+<!-- Begins problem V -->
+<div class="card" id="V">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemV" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 22: Diverse Matrix</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemV" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/problemset/problem/1266/C" target="_blank">Diverse Matrix</a>
+
+Construct the matrix in this way:
+
+$$
+ \begin{pmatrix}
+  2 & 2 \cdot (r + 2) & \cdots & 2 \cdot (r + c) \\
+  3 & 3 \cdot (r + 2) & \cdots & 3 \cdot (r + c) \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  r + 1 & (r + 1) \cdot (r + 2) & \cdots & (r + 1) \cdots (r + c)
+ \end{pmatrix}
+$$
+
+We have that $gcd(a, a + 1) = 1$
+
+Then, for each row (from 1 to r) we get these values $2, 3, \dots, r + 1$ and for each column (from 1 to c) we get these values $1, r + 2, r + 3, \dots, r + c$. That is, we get all the values in $[1, r + c]$ and there is no better answer (**why?**). So, we can implement a solution in $O(rc)$ taking as special case when $r = 1$, $c = 1$ and $r = c = 1$.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemV" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemV" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+
+using namespace std;
+
+typedef long long ll;
+typedef pair <int, int> pii;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int r, c;
+  cin >> r >> c;
+  if (r == 1 and c == 1) {
+    cout << 0 << '\n';
+    return (0);
+  }
+  if (r == 1) {
+    for (int j = 0; j < c; j++) cout << 2 + j << " \n"[j == c - 1];
+    return (0);
+  }
+  if (c == 1) {
+    for (int i = 0; i < r; i++) cout << 2 + i << '\n';
+    return (0);
+  }
+  vector <vector <int>> mat(r, vector <int> (c));
+  for (int i = 0; i < r; i++) mat[i][0] = 2 + i;
+  for (int i = 0; i < r; i++) {
+    int p = r + 2;
+    for (int j = 1; j < c; j++) {
+      mat[i][j] = mat[i][0] * p;
+      p++;
+    }
+  }
+  for (int i = 0; i < r; i++) {
+    for (int j = 0; j < c; j++) cout << mat[i][j] << " \n"[j == c - 1];
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem V -->
+
+
+
+
+<!-- Begins problem U -->
+<div class="card" id="U">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemU" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 21: Dice Tower</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemU" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/problemset/problem/1266/B" target="_blank">Dice Tower</a>
+
+The sum of opposite faces in a dice is always 7, then if we have $x$ dices,
+each dice contributes with $14 \cdot x$ and the top dice contributes with one
+more number between $1$ and $6$. Then, we have:
+
+$$14 \cdot x + d = n$$
+
+Where $1 \leq d \leq 6$. So, if the equation holds for some $1 \leq x$ we have and answer.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemU" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemU" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef pair <ll, ll> pll;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+typedef vector <pii> vpii;
+typedef vector <pll> vpll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int tc;
+  cin >> tc;
+  while (tc--) {
+    ll num;
+    cin >> num;
+    bool ok = false;
+    for (int d = 1; d <= 6; d++) {
+      ll val = num - d;
+      if (val % 14 == 0 and val / 14 >= 1) ok = true;
+    }
+    if (ok) cout << "YES\n";
+    else cout << "NO\n";
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem U -->
+
+
+
+
+<!-- Begins problem T -->
+<div class="card" id="T">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemT" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 20: Maximize an Expression</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemT" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://www.codechef.com/problems/MAXEXPR" target="_blank">Maximize an Expression</a>
+
+We have $\sum k_i \cdot x_i = 0$ and we want to maximize:
+
+$$F = \sum \sqrt{x_i + c_i}$$
+
+We can solve it using Cauchy-Schwarz inequality, is states that:
+
+$$(\sum a_1 \cdot b_i)^2 \leq (\sum a_i^2) \cdot (\sum b_i^2)$$
+
+And it becomes and equality when $\frac{a_i}{b_i} = constant$
+
+Then, if we take $a_i = \sqrt{k_i (x_i + c_i)}$ and $b_i = \sqrt{\frac{1}{k_i}}$ we get:
+
+$$(\sum \sqrt{x_i + c_i})^2 = F^2 \leq (\sum k_i (x_i + c_i)) \cdot (\sum \frac{1}{k_i})$$
+
+But $\sum k_i \cdot x_i = 0$, then we get:
+
+$$F^2 \leq (\sum k_i \cdot c_i) \cdot (\sum \frac{1}{k_i})$$
+
+Using it we can get if $F$ exists. Moreover, using $\frac{a_i}{b_i} = constant$
+and $\sum k_i \cdot x_i = 0$ we get that:
+
+$$x_i = \frac{\sum k_j \cdot c_j}{k_i^2 \cdot (\sum 1 / k_j)} - c_i$$
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemT" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemT" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef pair <ll, ll> pll;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+typedef vector <pii> vpii;
+typedef vector <pll> vpll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int tc;
+  cin >> tc;
+  while (tc--) {
+    int n;
+    cin >> n;
+    vector <double> k(n);
+    for (auto& elem: k) cin >> elem;
+    vector <double> c(n);
+    for (auto& elem: c) cin >> elem;
+    double prod_sum = 0;
+    double inv_sum = 0;
+    for (int i = 0; i < n; i++) {
+      prod_sum += c[i] * k[i];
+      inv_sum += 1 / k[i];
+    }
+    assert(0 < inv_sum);
+    if (prod_sum < 0) {
+      cout << -1 << '\n';
+      continue;
+    }
+    double F = 0;
+    vector <double> x(n);
+    for (int i = 0; i < n; i++) {
+      x[i] = prod_sum / (k[i] * k[i] * inv_sum) - c[i];
+      F += sqrt(x[i] + c[i]);
+    }
+    cout << fixed << setprecision(9);
+    cout << F;
+    for (int i = 0; i < n; i++) {
+      cout << ' ' << x[i];
+    }
+    cout << '\n';
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem T -->
+
+
+
+
+
+<!-- Begins problem S -->
+<div class="card" id="S">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemS" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 19: Jimmy's Balls</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemS" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2475" target="_blank">Jimmy's Balls</a>
+
+We have $1 \leq r < b < g \land r + b + g = n$
+
+If we fix $r$, we have $b + g = n - r = m$
+
+Then, these are the values that hold the equation:
+
+* $b = 1 \to g = m - 1$
+* $b = 2 \to g = m - 2$
+* $\vdots$
+* $b = k \to g = m - k$
+
+But $b < g \to k < m - k \to 2 \cdot k < m \land r < k$. So, $k = max(0, \frac{m}{2} - [m \bmod 2 = 0] - r)$. Using it we can implement a $O(n)$ solution for each case.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemS" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemS" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef pair <ll, ll> pll;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+typedef vector <pii> vpii;
+typedef vector <pll> vpll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int tc = 0;
+  ll n;
+  while (cin >> n, n != 0) {
+    ll ans = 0;
+    for (ll r = 1; r < n; r++) {
+      ll m = n - r;
+      ll k = m / 2;
+      if (m % 2 == 0) k--;
+      ans += max(0LL, k - r);
+    }
+    cout << "Case " << ++tc << ": " << ans << '\n';
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem S -->
+
+
+
+
+<!-- Begins problem R -->
+<div class="card" id="R">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemR" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 18: Consecutive Integers</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemR" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2221" target="_blank">Consecutive Integers</a>
+
+If the answer is $l + (l + 1) + \dots + (l + d - 1) = n$
+
+Then, we have: 
+
+$$\binom{l + d - 1}{2} - \binom{l - 1}{2} = n$$
+$$l = \frac{2 \cdot n - d^2 + d}{2 \cdot d}$$
+
+So, we can fix $d$ and implement a brute force solution.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemR" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemR" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef pair <ll, ll> pll;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+typedef vector <pii> vpii;
+typedef vector <pll> vpll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  while (cin >> n, n != -1) {
+    int ans_l, ans_r;
+    for (int d = 1; d * d <= 2 * n; d++) {
+      int sum = 2 * n - d * d + d;
+      if (sum % (2 * d) == 0) {
+        ans_l = sum / (2 * d);
+        ans_r = ans_l + d - 1;
+      }
+    }
+    cout << n << " = " << ans_l << " + ... + " << ans_r << '\n';
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem R -->
+
+
+
+
+<!-- Begins problem problem-17 -->
+<div class="card" id="problem-17">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemproblem-17" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 17: GCD on Blackboard</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemproblem-17" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://abc125.contest.atcoder.jp/tasks/abc125_c?lang=en" target="_blank">GCD on Blackboard</a>
+
+If we change the $i$-th element then, we have:
+
+$$g = gcd(gcd(A_1, A_2, \dots, A_{i - 1}), gcd(A_{i + 1}, A_{i + 2}, \dots, A_n))$$
+
+And we know that $gcd(a, b) \leq \min(a, b) \land gcd(a, a) = a$
+
+So, we can choose to replace $a_i$ with $g$ and we will get $g = gcd(g, A_i)$.
+Finally, we can use the idea of prefix sums and try to replace every $i$.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemproblem-17" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemproblem-17" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define sz(A) int(A.size())
+
+using namespace std;
+
+typedef long long ll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  cin >> n;
+  vector <int> arr(n);
+  vector <int> l(n), r(n);
+  for (int i = 0; i < n; i++) cin >> arr[i];
+  l[0] = arr[0];
+  for (int i = 1; i < n; i++) l[i] = __gcd(l[i - 1], arr[i]);
+  r[n - 1] = arr[n - 1];
+  for (int i = n - 2; i >= 0; i--) r[i] = __gcd(r[i + 1], arr[i]);
+  int ans = max(l[n - 2], r[1]);
+  for (int i = 1; i + 1 < n; i++) ans = max(ans, __gcd(l[i - 1], r[i + 1]));
+  cout << ans << endl;
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem problem-17 -->
+
+
+
+
+<!-- Begins problem problem-16 -->
+<div class="card" id="problem-16">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemproblem-16" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 16: DivRem Number</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemproblem-16" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://diverta2019.contest.atcoder.jp/tasks/diverta2019_d?lang=en" target="_blank">DivRem Number</a>
+
+There is some problem in the rendering of the statement. It should say:
+
+$$\lfloor \frac{N}{m} \rfloor = N \bmod m$$
+
+**Solution:**
+
+We known from the division theorem that:
+
+$$N = \lfloor \frac{N}{m} \rfloor \cdot m + N \bmod m$$
+
+Let $k = \lfloor \frac{N}{m} \rfloor = N \bmod m$
+
+Then, we have:
+
+$$N = k \cdot m + k$$
+$$N = k \cdot (m + 1)$$
+
+Then, m + 1 must be a divisor of $N$, so we can generate all the divisors of
+$N$ and check if the condition holds in $O(\sqrt{N})$.
+
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemproblem-16" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemproblem-16" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define sz(A) int(A.size())
+
+using namespace std;
+
+typedef long long ll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  ll n;
+  cin >> n;
+  vector <ll> div;
+  for (ll d = 1; d * d <= n; d++) {
+    if (n % d == 0) {
+      if (d != 1) div.push_back(d);
+      if (d != n / d) div.push_back(n / d);
+    }
+  }
+  ll ans = 0;
+  for (ll d: div) {
+    ll m = d - 1;
+    if (n % m == n / m) {
+      ans += m;
+    }
+  }
+  cout << ans << endl;
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem problem-16 -->
+
+
+
+
+<!-- Begins problem problem-15 -->
+<div class="card" id="problem-15">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemproblem-15" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 15: ConneR and the A.R.C. Markland-N</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemproblem-15" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/problemset/problem/1293/A" target="_blank">ConneR and the A.R.C. Markland-N</a>
+
+There are $k$ closed restaurants, thefore we will find the answer in $O(k)$
+steps, so a brute force solution in enough.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemproblem-15" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemproblem-15" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+
+using namespace std;
+
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int tc;
+  cin >> tc;
+  while (tc--) {
+    int n, s, k;
+    cin >> n >> s >> k;
+    set <int> st;
+    for (int i = 0; i < k; i++) {
+      int a;
+      cin >> a;
+      st.insert(a);
+    }
+    int ans = INT_MAX;
+    for (int d = 0; ; d++) {
+      for (int sign: {1, -1}) {
+        int cur = s + sign * d;
+        if (1 <= cur and cur <= n and st.count(cur) == 0) {
+          ans = d;
+        }
+      }
+      if (ans != INT_MAX) break;
+    }
+    cout << ans << '\n';
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem problem-15 -->
+
+
+
+
+<!-- Begins problem problem-14 -->
+<div class="card" id="problem-14">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblemproblem-14" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 14: Resale</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblemproblem-14" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://abc125.contest.atcoder.jp/tasks/abc125_b?lang=en" target="_blank">Resale</a>
+
+Each element can be added to $X$ or to $Y$.
+
+Let $b = b_nb_{n - 1} \dots b_1$ be a bit mask where $b_i = 1$ if the $i$-th
+element is taken and $b_i = 0$ if the $i-th$ is not taken, then
+we realize that all possible masks are $b \in [0, 2 ^n)$. In this way, we can
+implement an $O(n 2^n)$ solution and that is enough.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemproblem-14" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemproblem-14" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define sz(A) int(A.size())
+
+using namespace std;
+
+typedef long long ll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  cin >> n;
+  vector <int> v(n), c(n);
+  for (int i = 0; i < n; i++) cin >> v[i];
+  for (int i = 0; i < n; i++) cin >> c[i];
+  int ans = 0;
+  for (int mask = 0; mask < (1 << n); mask++) {
+    int x = 0, y = 0;
+    for (int bit = 0; bit < n; bit++) if ((mask >> bit) & 1) x += v[bit], y += c[bit];
+    ans = max(ans, x - y);
+  }
+  cout << ans << endl;
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+We can also implement the above idea using backtracking.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemproblem-14-b" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemproblem-14-b" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+
+int n;
+vi v, c;
+
+int backtrack (int pos, int x, int y) {
+  if (pos == n) return x - y;
+  return max(backtrack(pos + 1, x + v[pos], y + c[pos]), backtrack(pos + 1, x, y));
+}
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  cin >> n;
+  v.resize(n);
+  c.resize(n);
+  for (int& elem: v) cin >> elem;
+  for (int& elem: c) cin >> elem;
+  cout << backtrack(0, 0, 0) << '\n';
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+There is another solution. If we take the elements $i_1, i_2, \dots, i_k$ then we have:
+
+$$(v_{i_1} + v_{i_2} + \dots v_{i_k}) - (c_{i_1} + c_{i_2} + \dots + c_{i_k})$$
+
+We can write the above expression in this way:
+
+$$(v_{i_1} - c_{i_1}) + (v_{i_2} - c_{i_2}) + \dots + (v_{i_k} - c_{i_k})$$
+
+Therefore, if $v_{i} - c_{i}$ is positive, we take the $i-th$ element, else we
+do not.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblemproblem-14-c" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblemproblem-14-c" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+
+int n;
+vi v, c;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  cin >> n;
+  v.resize(n);
+  c.resize(n);
+  for (int& elem: v) cin >> elem;
+  for (int& elem: c) cin >> elem;
+  int ans = 0;
+  for (int i = 0; i < n; i++) {
+    if (v[i] - c[i] > 0) ans += v[i] - c[i];
+  }
+  cout << ans << '\n';
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+
+</div>
+</div>
+</div>
+<!-- ends problem problem-14 -->
+
+
+
+
+<!-- Begins problem 13 -->
+<div class="card" id="13">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem13" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 13: Exception Handling</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem13" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://atcoder.jp/contests/abc134/tasks/abc134_c" target="_blank">Exception Handling</a>
+
+**First solution:** Notice that the answer will allways be the greatest value or the second greatest value. We can find these values in $O(n)$ or in $O(n \log n)$.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem13" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem13" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+     
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+     
+using namespace std;
+     
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+     
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  cin >> n;
+  vi A(n);
+  for (int& elem: A) cin >> elem;
+  vi B = A;
+  sort(rall(B));
+  for (int elem: A) {
+    if (elem != B[0]) cout << B[0] << '\n';
+    else cout << B[1] << '\n';
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+**Second solution:** We need to compute:
+
+$$\max(A_1, A_2, \dots, A_{i - 1}), \max(A_{i}, A_{i + 1}, \dots, A_{n})$$
+
+Let:
+
+$$left[0] = 0$$
+$$left[i] = \max(left[i - 1], A[i])$$
+
+$$right[n + 1] = 0$$
+$$right[n] = \max(right[n + 1], A[i])$$
+
+Then, we need to compute: $\max(left[i - 1], right[i + 1])$, but we can compute $left$ and $right$ in $O(n)$ using the idea of prefix sums. Therefore, we can solve the problem in $O(n)$.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem13-b" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem13-b" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+
+using namespace std;
+
+typedef long long ll;
+typedef pair <int, int> pii;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  cin >> n;
+  vector <int> arr(n + 1);
+  for (int i = 1; i <= n; i++) cin >> arr[i];
+  vector <int> left(n + 1);
+  left[0] = 0;
+  for (int i = 1; i <= n; i++) left[i] = max(left[i - 1], arr[i]);
+  vector <int> right(n + 2);
+  right[n + 1] = 0;
+  for (int i = n; i >= 0; i--) right[i] = max(right[i + 1], arr[i]);
+  for (int i = 1; i <= n; i++) cout << max(left[i - 1], right[i + 1]) << '\n';
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+
+</div>
+</div>
+</div>
+<!-- ends problem 13 -->
+
+
+
+
+<!-- Begins problem 12 -->
+<div class="card" id="12">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem12" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 12: Green Bin</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem12" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://abc137.contest.atcoder.jp/tasks/abc137_c?lang=en" target="_blank">Green Bin</a>
+
+If $s \land t$ are anagrams, then $sort(all(a)) = sort(all(b))$. That is, if we
+sort the letters of a string, we have a representative of a set of anagrams.
+Moreover, if we have $x$ strings of the same anagram class, we can choose
+$\binom{x}{2}$ indices such that $s_i \land s_j$ are anagrams. In this way, we
+can implement a solution in $O(N \log N)$.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem12" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem12" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+
+using namespace std;
+
+typedef long long ll;
+typedef pair <int, int> pii;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  cin >> n;
+  map <string, int> mp;
+  for (int i = 0; i < n; i++) {
+    string s;
+    cin >> s;
+    sort(all(s));
+    mp[s]++;
+  }
+  ll ans = 0;
+  for (auto pp: mp) {
+    ll cnt = pp.second;
+    ans += cnt * (cnt - 1) / 2;
+  }
+  cout << ans << '\n';
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem 12 -->
+
+
+
+
+<!-- Begins problem 11 -->
+<div class="card" id="11">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem11" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 11: Blocks</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem11" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/contest/1271/problem/B" target="_blank">Blocks</a>
+
+Each block should end up being black or white. You can fix what color the
+string will be and try to change it in a loop (if you are in iteration `i` you
+have already change $s[0: i - 1]$, now if $s[i] \not = \text{the color you have fixed}$,
+invert $s[i], s[i + 1]$). In this way you need at most $n - 1$ operations.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem11" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem11" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+
+using namespace std;
+
+typedef long long ll;
+typedef pair <int, int> pii;
+
+void solve (string s, char ch) {
+  vector <int> ans;
+  for (int i = 0; i + 1 < sz(s); i++) {
+    if (s[i] != ch) {
+      s[i] = ch;
+      s[i + 1] = (s[i + 1] == 'B') ? 'W' : 'B';
+      ans.pb(i + 1);
+    }
+  }
+  if (s.back() != ch) return;
+  cout << sz(ans) << '\n';
+  for (int elem: ans) cout << elem << ' ';
+  exit(0);
+}
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  cin >> n;
+  string s;
+  cin >> s;
+  solve(s, 'W');
+  solve(s, 'B');
+  cout << -1 << '\n';
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem 11 -->
+
+
+
+
+<!-- Begins problem 10 -->
+<div class="card" id="10">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem10" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 10: JOE is on TV!</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem10" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/problemset/problem/1293/B" target="_blank">JOE is on TV!</a>
+
+You can notice that the optimal strategy is that in each turn one opponent
+fails
+to answer. Then, our answer is
+
+$$\frac{1}{n} + \frac{1}{n - 1} + \frac{1}{n - 2} + \dots + \frac{1}{1}$$
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem10" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem10" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+
+using namespace std;
+
+typedef long long ll;
+typedef pair <int, int> pii;
+typedef vector <int> vi;
+typedef vector <ll> vll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  cin >> n;
+  long double sum = 0;
+  for (int i = 1; i <= n; i++) {
+    long double x = i;
+    sum += 1.0 / x;
+  }
+  cout << fixed << setprecision(12) << sum << '\n';
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem 10 -->
+
+
+
+
+<!-- Begins problem 09 -->
+<div class="card" id="09">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem09" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 09: Number of Triplets</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem09" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/contest/181/problem/B" target="_blank">Number of Triplets</a>
+
+If you fix $A, C$ with two `fors`, you can get what value of $B$ you need.
+Moreover, as all the points are integers, we can check if $A_x + C_x \land A_y + C_y$ are even in order to avoid working with floats. Now, we have fixed $B = ((A_x + C_x) / 2, (A_y + C_y) / 2)$ and we need to check if this point is in the input. We can do it with a set (you'll get TLE with a map) and solve the problem in $O(n^2 \log n)$.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem09" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem09" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main () {
+  int n;
+  cin >> n;
+  vector <pair <int, int>> point(n);
+  set <pair <int, int>> st;
+  for (int i = 0; i < n; i++) {
+    cin >> point[i].first >> point[i].second;
+    st.insert(point[i]);
+  }
+  int ans = 0;
+  for (int a = 0; a < n; a++) {
+    for (int c = a + 1; c < n; c++) {
+      pair <int, int> b;
+      int x = point[a].first + point[c].first;
+      int y = point[a].second + point[c].second;
+      if (x % 2 or y % 2) continue;
+      b.first = x / 2;
+      b.second = y / 2;
+      if (st.count(b)) ans++;
+    }
+  }
+  cout << ans << endl;
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+Furthermore, you can check if a point is in the input in $O(1)$ storing the points in a matrix of booleans. But, as the coordinates can take negative values in $[-1000, 1000]$ you can associate to each number $(x, y) \to (x + 1000, y + 1000)$ (this is a biyection). Using it, each coordinate is non-negative, so we can store it in our matrix.
+
+</div>
+</div>
+</div>
+<!-- ends problem 09 -->
+
+
+
+
+<!-- Begins problem 08 -->
+<div class="card" id="08">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem08" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 08: Little Quilt</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem08" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://www.spoj.com/problems/QUILT/en/" target="_blank">Little Quilt</a>
+
+Just simulate what the problem says.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem08" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem08" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+
+using namespace std;
+
+typedef long long ll;
+typedef pair <int, int> pii;
+
+char rotate (char ch) {
+  if (ch == '/') return '\\';
+  if (ch == '\\') return '/';
+  if (ch == '+') return '+';
+  if (ch == '-') return '|';
+  if (ch == '|') return '-';
+}
+
+struct Quilt {
+  int n, m;
+  vector <string> grid;
+  Quilt () {}
+  Quilt (char ch) {
+    if (ch == 'A') {
+      grid.push_back("//");
+      grid.push_back("/+");
+    }
+    if (ch == 'B') {
+      grid.push_back("--");
+      grid.push_back("--");
+    }
+    n = m = 2;
+  }
+  Quilt turn () {
+    vector <string> turned(m, string(n, ' '));
+    for (int r = 0; r < n; r++) {
+      for (int c = 0; c < m; c++) {
+        turned[c][n - 1 - r] = rotate(grid[r][c]);
+      }
+    }
+    Quilt ret;
+    ret.grid = turned;
+    ret.m = n;
+    ret.n = m;
+    return ret;
+  }
+  Quilt sew (Quilt other) {
+    vector <string> join(n, string(m + other.m, ' '));
+    for (int r = 0; r < n; r++) {
+      for (int c = 0; c < m; c++) {
+        join[r][c] = grid[r][c];
+      }
+      for (int c = 0; c < other.m; c++) {
+        join[r][m + c] = other.grid[r][c];
+      }
+    }
+    Quilt ret;
+    ret.grid = join;
+    ret.n = n;
+    ret.m = m + other.m;
+    return ret;
+  }
+  void print () {
+    for (string row: grid) cout << row << '\n';
+  }
+};
+
+bool solve (string& command) {
+  stack <int> op;
+  vector <Quilt> ans;
+  string cur = "";
+  for (char ch: command) {
+    if (ch == '(') {
+      if (cur == "turn") op.push(1);
+      else if (cur == "sew") op.push(2);
+      else return false;
+      cur = "";
+    } else if (ch == ')') {
+      if (not cur.empty()) {
+        if (cur == "A") ans.push_back(Quilt('A'));
+        else if (cur == "B") ans.push_back(Quilt('B'));
+        else return false;
+        cur = "";
+      }
+      if (op.empty()) return false;
+      int option = op.top();
+      op.pop();
+      if (option == 1) {
+        if (ans.size() < 1) return false;
+        ans.back() = ans.back().turn();
+      } else if (option == 2) {
+        if (ans.size() < 2) return false;
+        Quilt a = end(ans)[-2];
+        Quilt b = end(ans)[-1];
+        ans.pop_back();
+        ans.pop_back();
+        if (a.n != b.n) return false;
+        ans.push_back(a.sew(b));
+      }
+    } else if (ch == ',') {
+      if (cur != "") {
+        if (cur == "A") ans.push_back(Quilt('A'));
+        else if (cur == "B") ans.push_back(Quilt('B'));
+        else return false;
+      }
+      cur = "";
+    } else {
+      cur += ch;
+    }
+  }
+  if (ans.size() != 1) return false;
+  ans[0].print();
+  return true;
+}
+
+int main () {
+  int tc = 0;
+  char ch;
+  string command = "";
+  while ((ch = getchar()) != EOF) {
+    if (ch == ' ' or ch == '\n') continue;
+    if (ch == ';') {
+      printf("Quilt %d:\n", ++tc);
+      if (not solve(command)) puts("error");
+      command = "";
+    } else {
+      command += ch;
+    }
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem 08 -->
+
+
+
+
+<!-- Begins problem 07 -->
+<div class="card" id="07">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem07" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 07: z-sort</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem07" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/problemset/problem/652/B" target="_blank">z-sort</a>
+
+Sort the array and alternate taking elements (the smallest, the greater, the
+second smallest, the second greater, ...).
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem07" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem07" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main () {
+  int n;
+  cin >> n;
+  vector <int> arr(n);
+  for (int i = 0; i < n; i++) cin >> arr[i];
+  sort(begin(arr), end(arr));
+  int l = 0, r = n - 1;
+  for (int i = 0; i < n; i++) {
+    if (i % 2 == 0) cout << arr[l++];
+    else cout << arr[r--];
+    cout << " \n"[i == n - 1];
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem 07 -->
+
+
+
+
+<!-- Begins problem 06 -->
+<div class="card" id="06">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem06" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 06: GeT AC</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem06" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://atcoder.jp/contests/abc122/tasks/abc122_c" target="_blank">GeT AC</a>
+
+We can count how many `AC` there are in a range using prefix sums and taking
+care or corner cases.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem06" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem06" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define sz(A) int(A.size())
+
+using namespace std;
+
+typedef long long ll;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n, q;
+  cin >> n >> q;
+  string s;
+  cin >> s;
+  vector <int> ac(n + 1, 0);
+  for (int i = 1; i < n; i++) {
+    if (s[i - 1] == 'A' and s[i] == 'C') {
+      ac[i + 1] = 1;
+    }
+  }
+  for (int i = 1; i <= n; i++) {
+    ac[i] += ac[i - 1];
+  }
+  while (q--) {
+    int l, r;
+    cin >> l >> r;
+    int x = ac[r] - ac[l - 1];
+    if (ac[l] - ac[l - 1] == 1) x--;
+    cout << x << '\n';
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem 06 -->
+
+
+
+
+<!-- Begins problem 05 -->
+<div class="card">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem05" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 05: Competitive Programmer</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem05" class="collapse">
+<div class="card-body solution-body">
+### <a href="https://codeforces.com/contest/1266/problem/A" target="_blank">Competitive Programmer</a>
+$60 = 3 \cdot 5 \cdot 2 \cdot 2$. Then, to verify that we can construct a number multiple of $60$ it is enough to
+verify:
+
+  * It is multiple of 3: the sum of digits is multiple of 3
+  * It is multiple of 5 and 2: It ends in 0
+  * It is multiple of 4: the last two digits are multiple of 4
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem05" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem05" class="collapse">
+```c++
+#include <bits/stdc++.h>
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+using namespace std;
+typedef long long ll;
+typedef pair <int, int> pii;
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  cin >> n;
+  while (n--) {
+    string s;
+    cin >> s;
+    if (sz(s) == 1) {
+      if (s[0] == '0') cout << "red\n";
+      else cout << "cyan\n";
+      continue;
+    }
+    int zero = 0;
+    int sum = 0;
+    for (auto ch: s) zero += (ch == '0'), sum += (ch - '0');
+    if (sum % 3 or !zero) {
+      cout << "cyan\n";
+      continue;
+    }
+    if (zero > 1) {
+      cout << "red\n";
+      continue;
+    }
+    bool ok = false;
+    for (char ch: s) {
+      if (ch == '0') continue;
+      int num = (ch - '0') * 10;
+      if (num % 4 == 0) ok = true;
+    }
+    if (ok) cout << "red\n";
+    else cout << "cyan\n";
+  }
+  return (0);
+}
+```
+  </div>
+  <!-- ends code -->
+</div>
+</div>
+</div>
+<!-- ends problem 05 -->
+
+
+
+
+<!-- Begins problem 04 -->
+<div class="card">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem04" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 04: 0 or 1 Swap</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem04" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://atcoder.jp/contests/abc135/tasks/abc135_b" target="_blank">0 or 1 Swap</a>
+
+Try every $i, j$. This solution is $O(N^3)$ and as $N \leq 50$ it is enough.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem04" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem04" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+
+using namespace std;
+
+typedef long long ll;
+typedef pair <int, int> pii;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  cin >> n;
+  vector <int> arr(n);
+  for (int i = 0; i < n; i++) cin >> arr[i];
+  vector <int> s = arr;
+  sort(all(s));
+  for (int i = 0; i < n; i++) {
+    for (int j = i; j < n; j++) {
+      swap(arr[i], arr[j]);
+      if (arr == s) {
+        cout << "YES\n";
+        return (0);
+      }
+      swap(arr[i], arr[j]);
+    }
+  }
+  cout << "NO\n";
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem 04 -->
+
+
+
+
+<!-- Begins problem 03 -->
+<div class="card">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem03" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 03: Brick Break</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem03" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://atcoder.jp/contests/abc148/tasks/abc148_d" target="_blank">Brick Break</a>
+
+The problem is basically to find the largest continuous segment $[l, r] \mid a[l + i] = i + 1, 0 \leq i \leq r - l$. Notice that we can do it in $O(n)$.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem03" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem03" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+#define all(A) begin(A), end(A)
+#define rall(A) rbegin(A), rend(A)
+#define sz(A) int(A.size())
+#define pb push_back
+#define mp make_pair
+
+using namespace std;
+
+typedef long long ll;
+typedef pair <int, int> pii;
+
+int main () {
+  ios::sync_with_stdio(false); cin.tie(0);
+  int n;
+  cin >> n;
+  int cnt = 0;
+  int cur = 1;
+  for (int i = 0; i < n; i++) {
+    int elem;
+    cin >> elem;
+    if (elem == cur) cur++, cnt++;
+  }
+  int need = n - cnt;
+  if (need <= n - 1) cout << need << '\n';
+  else cout << -1 << '\n';
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem 03 -->
+
+
+
+
+<!-- Begins problem 02 -->
+<div class="card">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem02" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 02: Prime Subtraction</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem02" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/contest/1238/problem/A" target="_blank">Prime Subtraction</a>
+
+If $x - y = 1$ then the answer is no, else, by the fundamental theorem of
+arithmetic $\exists \, p$ prime $: p | (x - y)$. So, the answer is yes.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem02" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem02" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main () {
+  int tc;
+  cin >> tc;
+  while (tc--) {
+    long long x, y;
+    cin >> x >> y;
+    if (x - y == 1) cout << "NO\n";
+    else cout << "YES\n";
+  }
+  return (0);
+}
+```
+
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem 02 -->
+
+
+
+
+<!-- Begins problem 01 -->
+<div class="card">
+<div class="collapsed solution-title" type="button" data-toggle="collapse" data-target="#collapseProblem01" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Day 01: Superhero Transformation</p>
+</div>
+<!-- begin body -->
+<div id="collapseProblem01" class="collapse">
+<div class="card-body solution-body">
+
+### <a href="https://codeforces.com/problemset/problem/1111/A" target="_blank">Superhero Transformation</a>
+
+Let $f(c) = 1$ if `c` is as vowel and $f(c) = 0$ otherwise. Then, the answer is
+true iff $|s| = |t| \land f(s[i]) = f(t[i]) \quad \forall i \in [0, n)$.
+
+  <!-- begin code -->
+  <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeProblem01" aria-expanded="false" aria-controls="collapseTwo">
+  <!-- title -->
+  <i class="fas fa-caret-right"></i> <p class="title">Code</p>
+  </div>
+  <div id="codeProblem01" class="collapse">
+  
+```c++
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int f (char c) {
+  if (c == 'a' or c == 'e' or c == 'i' or c == 'o' or c == 'u') return 1;
+  return 0;
+}
+
+int main () {
+  string s, t;
+  cin >> s >> t;
+  if (s.size() != t.size()) {
+    cout << "No" << '\n';
+    return (0);
+  }
+  bool ok = true;
+  for (int i = 0; i < s.size(); i++) {
+    if (f(s[i]) != f(t[i])) ok = false;    
+  }
+  if (ok) cout << "Yes\n";
+  else cout << "No\n";
+  return (0);
+}
+```
+  </div>
+  <!-- ends code -->
+
+</div>
+</div>
+</div>
+<!-- ends problem 01 -->
+
+
+<script>
+$("#daily-problem-page")
+  .addClass("active");
+</script>
