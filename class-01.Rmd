@@ -3,8 +3,8 @@ title: 'Clase 01: Introducción'
 author: "GPC-UNI Resto del Mundo"
 date: "07-01-2020"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -62,7 +62,7 @@ Individuales:
 La competencia más antigua y reconocida de todas es la ICPC (*International Collegiate Programming Contest*), la cual data desde los años 70s y reúne a los competidores universitarios de más alto nivel de todo el mundo.
 
 <p align="center">
-  <img src="https://icpc.baylor.edu/xwiki/wiki/public/download/worldfinals/schedule/2020HostLogo.png">
+  <img src="https://cs.hamilton.edu/wp-content/uploads/2016/09/logo.jpg">
 </p>
 
 La competencia consta de dos etapas:
