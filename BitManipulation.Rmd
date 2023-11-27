@@ -1,0 +1,38 @@
+---
+title: "BitManipulation"
+output: html_document
+date: "2023-11-27"
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## [A. Raising Bacteria](https://codeforces.com/contest/579/problem/A)
+
+Escribamos el número de bacterias que deseamos en su forma binaria.
+
+
+  $X=7$  Cuántas bacterias debemos colocar para obtener $X$
+  $X=111$
+  
+Al termino de un día una bacteria se habrá en 2. Esto significa que en forma
+binaria el bit se mueveuna posición a la derecha dejando en 0 su última posición.
+
+$X=1     \Rightarrow$    $X=2    \Rightarrow$    $X=4$
+$X=001   \Rightarrow$    $X=010  \Rightarrow$    $X=100$
+
+La respuesta será la cantidad de bits activos que contenga el número de bacterias 
+que deseamos tener.
+</div>
+<div id="codeExample1" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+	int n;cin>>n;
+	cout<<__builtin_popcount(n)<<"\n";
+}
+```
+
+</div>

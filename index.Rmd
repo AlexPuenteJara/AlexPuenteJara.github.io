@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ## [Introducción](./class-01.html)
-## [EDITORIATCAC1](./TCAC1-EditorialA.html)
+## [BIT MANIPULATION](./BitManipulation.html)
 ## [DYNAMIC PROGRAMMING](./DPcito.html)
 
 
