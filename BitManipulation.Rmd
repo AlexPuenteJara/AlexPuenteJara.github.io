@@ -31,6 +31,9 @@ $X=7$
 ```  
   <br>
 $X=111$
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i> <p class="title">Código (por Hugod)</p>
 </div>
 <div id="codeExample1" class="collapse">
 
