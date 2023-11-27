@@ -12,7 +12,7 @@
 
 <meta name="date" content="2023-11-27" />
 
-<title>PROGRAMACIÓN COMPETITIVA UNMSM</title>
+<title>BitManipulation</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -349,20 +349,38 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">PROGRAMACIÓN COMPETITIVA UNMSM</h1>
+<h1 class="title toc-ignore">BitManipulation</h1>
 <h4 class="date">2023-11-27</h4>
 
 </div>
 
 
-<div id="introducción" class="section level2">
-<h2><a href="./class-01.html">Introducción</a></h2>
+<div id="a.-raising-bacteria" class="section level2">
+<h2><a href="https://codeforces.com/contest/579/problem/A">A. Raising
+Bacteria</a></h2>
+<p>Escribamos el número de bacterias que deseamos en su forma
+binaria.</p>
+<p><span class="math inline">\(X=7\)</span> Cuántas bacterias debemos
+colocar para obtener <span class="math inline">\(X\)</span> <br> <span class="math inline">\(X=111\)</span></p>
+<p>Al termino de un día una bacteria se habrá en 2. Esto significa que
+en forma <br></p>
+<p>binaria el bit se mueve una posición a la derecha dejando en 0 su
+última posición.</p>
+<p><span class="math inline">\(X=1 \Rightarrow\)</span> <span class="math inline">\(X=2 \Rightarrow\)</span> <span class="math inline">\(X=4\)</span> <br> <span class="math inline">\(X=001 \Rightarrow\)</span> <span class="math inline">\(X=010 \Rightarrow\)</span> <span class="math inline">\(X=100\)</span></p>
+<p>La respuesta será la cantidad de bits activos que contenga el número
+de bacterias que deseamos tener.</p>
+<p><span class="math inline">\(X=7\)</span></p>
+<pre class="cpp"><code>  int ans = __builtin_popcount(x) = 3</code></pre>
+<br> <span class="math inline">\(X=111\)</span>
 </div>
-<div id="bit-manipulation" class="section level2">
-<h2><a href="./BitManipulation.html">BIT MANIPULATION</a></h2>
+<div id="codeExample1" class="collapse">
+<pre class="cpp"><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int main(){
+    int n;cin&gt;&gt;n;
+    cout&lt;&lt;__builtin_popcount(n)&lt;&lt;&quot;\n&quot;;
+}</code></pre>
 </div>
-<div id="dynamic-programming" class="section level2">
-<h2><a href="./DPcito.html">DYNAMIC PROGRAMMING</a></h2>
 </div>
 
 

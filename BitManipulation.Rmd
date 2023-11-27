@@ -12,17 +12,25 @@ knitr::opts_chunk$set(echo = TRUE)
 Escribamos el número de bacterias que deseamos en su forma binaria.
 
 
-  $X=7$  Cuántas bacterias debemos colocar para obtener $X$
+  $X=7$  Cuántas bacterias debemos colocar para obtener $X$ <br>
   $X=111$
   
-Al termino de un día una bacteria se habrá en 2. Esto significa que en forma
-binaria el bit se mueveuna posición a la derecha dejando en 0 su última posición.
+Al termino de un día una bacteria se habrá en 2. Esto significa que en forma  <br>
 
-$X=1     \Rightarrow$    $X=2    \Rightarrow$    $X=4$
+binaria el bit se mueve una posición a la derecha dejando en 0 su última posición.
+
+$X=1     \Rightarrow$    $X=2    \Rightarrow$    $X=4$ <br>
 $X=001   \Rightarrow$    $X=010  \Rightarrow$    $X=100$
 
 La respuesta será la cantidad de bits activos que contenga el número de bacterias 
 que deseamos tener.
+
+$X=7$  
+```c++
+  int ans = __builtin_popcount(x) = 3
+```  
+  <br>
+$X=111$
 </div>
 <div id="codeExample1" class="collapse">
 
