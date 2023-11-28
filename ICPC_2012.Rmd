@@ -1,0 +1,11 @@
+---
+title: "ICPC_2012"
+output: html_document
+date: "2023-11-28"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## [ICPC-2012-A](https://matcomgrader.com/problem/9331/arranging-heaps/) 
