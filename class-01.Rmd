@@ -1,5 +1,5 @@
 ---
-title: 'Clase 01: Introducción'
+title: 'Introducción'
 author: "GPC-UNI Resto del Mundo"
 date: "07-01-2020"
 output:
