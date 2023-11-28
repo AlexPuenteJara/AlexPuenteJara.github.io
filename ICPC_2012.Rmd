@@ -8,4 +8,4 @@ date: "2023-11-28"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## [ICPC-2012-A](https://matcomgrader.com/problem/9331/arranging-heaps/) 
+## [ICPC-2012-A - Arranging Heaps](https://matcomgrader.com/problem/9331/arranging-heaps/) 
