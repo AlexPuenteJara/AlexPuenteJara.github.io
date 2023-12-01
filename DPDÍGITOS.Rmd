@@ -16,11 +16,10 @@ $pos:$ Este argumento nos va a decir en qué posición del número estamos actua
 
 $canUseAll:$ este es un valor booleano que nos dice si en la posición actual podemos colocar cualquier dígito entre $0$ y $9$, o solo entre $0$ y el dígito en la posición actual de $n$. Por ejemplo, supongamos que $n=527$ y estamos en $pos=0$, entonces solo podemos colocar dígitos entre el $0$ y el $5$.  
 
-$Argumentos para la información de los números construidos
-hasta el momento:$ Puede ser la suma de dígitos al momento,
+$Propiedades:$ Puede ser la suma de dígitos al momento,
 el conteo de algún dígito, etc, dependiendo de la propiedad deseada.
 
-Entonces $dp(pos,...) nos dirá la respuesta para la propiedad 
+Entonces $dp(pos,...)$ nos dirá la respuesta para la propiedad 
 deseada, considerando números mayores a $n$ y que se comenzaron
 a construir desde la posición $pos$, tomando el cuenta los argumentos adicionales.
 
@@ -50,6 +49,21 @@ Y además notemos que los números construidos pueden contener ceros a la izquie
 
 ## [PROBLEMA: SUMA DE DÍGITOS](https://www.spoj.com/problems/PR003004/)
 
+Dados $L$ y $R$, hallar la suma de dígitos de todos los números entre $L$ y $R$.Ejemplo: si 
+ $L=34$ y $R=37$, la respuesta debe ser $3+4+3+5+3+6+3+7=7+8+9+10=34$.
+
+Sea $f(n)$ la suma de dígitos de todos los números positivos hasta $n$. Entonces, $dp(pos,canUseAll,sum)$ nos va a decir la suma deseada, solo considerando números construidos desde la posisión $pos$, guardando en la suma de la secuencia de dígitos actual.
+
+Entonces:
+
+\begin{equation*}
+dp(pos,canUseAll,sum)= \sum_{d=0}^{limit}dp(pos+1,canUseAll  || d<limit, sum+d)
+\end{equation*}
+La mandamos llamar como: $f(n)=dp(0,false,0)$
+
+Y el caso base es: $dp(l,canUseAll,sum)=sum$
+
+El código completo queda como:
 <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
 <!-- title -->
 <i class="fas fa-caret-right"></i> <p class="title">Código (por Alex Puente)</p>
@@ -72,7 +86,7 @@ lli dp(int pos, bool canUseAll, int sum, const vector<int> & digits_n){
 	ans = 0;
 	int limit = canUseAll ? 9 : digits_n[pos];
 	for(int d = 0; d <= limit; ++d){
-		ans += dp(pos + 1, canUseAll | d < limit, sum + d, digits_n);
+		ans += dp(pos + 1, canUseAll || d < limit, sum + d, digits_n);
 	}
 	return ans;
 }
