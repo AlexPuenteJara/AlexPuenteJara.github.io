@@ -10,6 +10,98 @@ Es una técnica que nos permite resolver preguntas del tipo: ¿cuántos enteros 
 
 Normalmente estaremos usando una función $f(n)$ que nos dirá la respuesta para la propiedad, considerando todos los enteros positivos que no excedan $n$. Entonces, para saber el número de números en $[L,R]$ que cumplen, simplemente vamos a calcular $f(R)-f(L-1)$.
 
-Para calcular $f(n)$ vamos a auxiliarnos de otra función $dp(pos,canUseAll,...)$. En esta función vamos a ir construyendo los números que cumplen con la propiedad deseada, dígito a dígito, comenzando desde el más significativo. De forma más específica, sea $n=\bar{n_0 n_1 ... n_{l-1}}$ representado dígito a dígito, y supongamos que estamos construyendo un número $x=\bar{d_0 d_1 ... d_{l-1}}$ también con $l$ dígitos, donde el orden de colocar los dígitos comienza en $d_0$ y termina en $d_{l-1}$. Los argumentos son:
+Para calcular $f(n)$ vamos a auxiliarnos de otra función $dp(pos,canUseAll,...)$. En esta función vamos a ir construyendo los números que cumplen con la propiedad deseada, dígito a dígito, comenzando desde el más significativo. De forma más específica, sea $n=\overline{n_0 n_1 ... n_{l-1}}$ representado dígito a dígito, y supongamos que estamos construyendo un número $x=\overline{d_0 d_1 ... d_{l-1}}$ también con $l$ dígitos, donde el orden de colocar los dígitos comienza en $d_0$ y termina en $d_{l-1}$. Los argumentos son:
 
-$pos:$ este argumento nos va a decir en qué posición del número estamos actualmente, de izquierda a derecha. Es decir, estamos colocando el dígito
+$pos:$ Este argumento nos va a decir en qué posición del número estamos actualmente, de izquierda a derecha. Es decir, estamos colocando el dígito $d_{pos}$
+
+$canUseAll:$ este es un valor booleano que nos dice si en la posición actual podemos colocar cualquier dígito entre $0$ y $9$, o solo entre $0$ y el dígito en la posición actual de $n$. Por ejemplo, supongamos que $n=527$ y estamos en $pos=0$, entonces solo podemos colocar dígitos entre el $0$ y el $5$.  
+
+$Argumentos para la información de los números construidos
+hasta el momento:$ Puede ser la suma de dígitos al momento,
+el conteo de algún dígito, etc, dependiendo de la propiedad deseada.
+
+Entonces $dp(pos,...) nos dirá la respuesta para la propiedad 
+deseada, considerando números mayores a $n$ y que se comenzaron
+a construir desde la posición $pos$, tomando el cuenta los argumentos adicionales.
+
+Las transiciones tienen esta forma muy general:
+
+
+
+\begin{equation*}
+
+limit = 
+\begin{cases}
+ 9  & si  & canUseAll== true\\
+n_{pos} & si & canUseAll==false
+\end{cases}
+\end{equation*}
+
+\begin{equation*}
+dp(pos,canUseAll,...)= \sum_{d=0}^{limit}dp(pos+1,canUseAll  || d<limit, ...)
+\end{equation*}
+
+Para mandar a llamar a la $DP$ usamos $f(n)=dp(0,false,...)$, y los casos base dependerán del problema, pero siempre se dan cuando ya construimos todo el número $x$, es decir, cuando $pos=l$.
+
+La magia de este tipo de programación dinámica radica en 
+que no necesitamos guardar cada secuencia de dígitos que vamos construyendo, solo cierta información referente a ellas en los argumentos adicionales.
+
+Y además notemos que los números construidos pueden contener ceros a la izquierda. Esto puede o no ocasionar algunas consideraciones adicionales, dependiendo del problema.
+
+## [PROBLEMA: SUMA DE DÍGITOS](https://www.spoj.com/problems/PR003004/)
+
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i> <p class="title">Código (por Alex Puente)</p>
+</div>
+<div id="codeExample1" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+using lli = int64_t;
+
+lli mem[17][2][150];
+
+lli dp(int pos, bool canUseAll, int sum, const vector<int> & digits_n){
+	if(pos == digits_n.size()){
+		return sum;
+	}
+	lli & ans = mem[pos][canUseAll][sum];
+	if(ans != -1) return ans;
+	ans = 0;
+	int limit = canUseAll ? 9 : digits_n[pos];
+	for(int d = 0; d <= limit; ++d){
+		ans += dp(pos + 1, canUseAll | d < limit, sum + d, digits_n);
+	}
+	return ans;
+}
+
+lli f(lli n){
+	if(n <= 0) return 0;
+	vector<int> digits_n;
+	while(n > 0){
+		digits_n.push_back(n % 10);
+		n /= 10;
+	}
+	reverse(digits_n.begin(), digits_n.end());
+	memset(mem, -1, sizeof(mem));
+	return dp(0, false, 0, digits_n);
+}
+
+int main(){
+	ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+	int t;
+	cin >> t;
+	while(t--){
+		lli a, b;
+		cin >> a >> b;
+		lli ans = f(b) - f(a-1);
+		cout << ans << "\n";
+	}
+	return 0;
+}
+```
+
+</div>
+

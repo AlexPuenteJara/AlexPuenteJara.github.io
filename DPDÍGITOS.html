@@ -370,14 +370,112 @@ simplemente vamos a calcular <span class="math inline">\(f(R)-f(L-1)\)</span>.</
 auxiliarnos de otra función <span class="math inline">\(dp(pos,canUseAll,...)\)</span>. En esta función
 vamos a ir construyendo los números que cumplen con la propiedad
 deseada, dígito a dígito, comenzando desde el más significativo. De
-forma más específica, sea <span class="math inline">\(n=\bar{n_0 n_1 ...
-n_{l-1}}\)</span> representado dígito a dígito, y supongamos que estamos
-construyendo un número <span class="math inline">\(x=\bar{d_0 d_1 ...
-d_{l-1}}\)</span> también con <span class="math inline">\(l\)</span>
-dígitos, donde el orden de colocar los dígitos comienza en <span class="math inline">\(d_0\)</span> y termina en <span class="math inline">\(d_{l-1}\)</span>. Los argumentos son:</p>
-<p><span class="math inline">\(pos:\)</span> este argumento nos va a
+forma más específica, sea <span class="math inline">\(n=\overline{n_0
+n_1 ... n_{l-1}}\)</span> representado dígito a dígito, y supongamos que
+estamos construyendo un número <span class="math inline">\(x=\overline{d_0 d_1 ... d_{l-1}}\)</span> también
+con <span class="math inline">\(l\)</span> dígitos, donde el orden de
+colocar los dígitos comienza en <span class="math inline">\(d_0\)</span>
+y termina en <span class="math inline">\(d_{l-1}\)</span>. Los
+argumentos son:</p>
+<p><span class="math inline">\(pos:\)</span> Este argumento nos va a
 decir en qué posición del número estamos actualmente, de izquierda a
-derecha. Es decir, estamos colocando el dígito</p>
+derecha. Es decir, estamos colocando el dígito <span class="math inline">\(d_{pos}\)</span></p>
+<p><span class="math inline">\(canUseAll:\)</span> este es un valor
+booleano que nos dice si en la posición actual podemos colocar cualquier
+dígito entre <span class="math inline">\(0\)</span> y <span class="math inline">\(9\)</span>, o solo entre <span class="math inline">\(0\)</span> y el dígito en la posición actual de
+<span class="math inline">\(n\)</span>. Por ejemplo, supongamos que
+<span class="math inline">\(n=527\)</span> y estamos en <span class="math inline">\(pos=0\)</span>, entonces solo podemos colocar
+dígitos entre el <span class="math inline">\(0\)</span> y el <span class="math inline">\(5\)</span>.</p>
+<p><span class="math inline">\(Argumentos para la información de los
+números construidos hasta el momento:\)</span> Puede ser la suma de
+dígitos al momento, el conteo de algún dígito, etc, dependiendo de la
+propiedad deseada.</p>
+<p>Entonces $dp(pos,…) nos dirá la respuesta para la propiedad deseada,
+considerando números mayores a <span class="math inline">\(n\)</span> y
+que se comenzaron a construir desde la posición <span class="math inline">\(pos\)</span>, tomando el cuenta los argumentos
+adicionales.</p>
+<p>Las transiciones tienen esta forma muy general:</p>
+<p><span class="math display">\[\begin{equation*}
+
+limit =
+\begin{cases}
+9  &amp; si  &amp; canUseAll== true\\
+n_{pos} &amp; si &amp; canUseAll==false
+\end{cases}
+\end{equation*}\]</span></p>
+<p><span class="math display">\[\begin{equation*}
+dp(pos,canUseAll,...)= \sum_{d=0}^{limit}dp(pos+1,canUseAll  ||
+d&lt;limit, ...)
+\end{equation*}\]</span></p>
+<p>Para mandar a llamar a la <span class="math inline">\(DP\)</span>
+usamos <span class="math inline">\(f(n)=dp(0,false,...)\)</span>, y los
+casos base dependerán del problema, pero siempre se dan cuando ya
+construimos todo el número <span class="math inline">\(x\)</span>, es
+decir, cuando <span class="math inline">\(pos=l\)</span>.</p>
+<p>La magia de este tipo de programación dinámica radica en que no
+necesitamos guardar cada secuencia de dígitos que vamos construyendo,
+solo cierta información referente a ellas en los argumentos
+adicionales.</p>
+<p>Y además notemos que los números construidos pueden contener ceros a
+la izquierda. Esto puede o no ocasionar algunas consideraciones
+adicionales, dependiendo del problema.</p>
+</div>
+<div id="problema-suma-de-dígitos" class="section level2">
+<h2><a href="https://www.spoj.com/problems/PR003004/">PROBLEMA: SUMA DE
+DÍGITOS</a></h2>
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+Código (por Alex Puente)
+</p>
+</div>
+<div id="codeExample1" class="collapse">
+<pre class="cpp"><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+using lli = int64_t;
+
+lli mem[17][2][150];
+
+lli dp(int pos, bool canUseAll, int sum, const vector&lt;int&gt; &amp; digits_n){
+    if(pos == digits_n.size()){
+        return sum;
+    }
+    lli &amp; ans = mem[pos][canUseAll][sum];
+    if(ans != -1) return ans;
+    ans = 0;
+    int limit = canUseAll ? 9 : digits_n[pos];
+    for(int d = 0; d &lt;= limit; ++d){
+        ans += dp(pos + 1, canUseAll | d &lt; limit, sum + d, digits_n);
+    }
+    return ans;
+}
+
+lli f(lli n){
+    if(n &lt;= 0) return 0;
+    vector&lt;int&gt; digits_n;
+    while(n &gt; 0){
+        digits_n.push_back(n % 10);
+        n /= 10;
+    }
+    reverse(digits_n.begin(), digits_n.end());
+    memset(mem, -1, sizeof(mem));
+    return dp(0, false, 0, digits_n);
+}
+
+int main(){
+    ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    int t;
+    cin &gt;&gt; t;
+    while(t--){
+        lli a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        lli ans = f(b) - f(a-1);
+        cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
+    }
+    return 0;
+}</code></pre>
+</div>
 </div>
 
 
