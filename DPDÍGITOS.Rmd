@@ -4,24 +4,12 @@ output: html_document
 date: "2023-12-01"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## DP de dígitos
 
 Es una técnica que nos permite resolver preguntas del tipo: ¿cuántos enteros positivos hay en el rango $[L,R]$ tal que cumplen alguna propiedad, o cuántas veces aparece esa propiedad entre todos los dígitos combinados en el rango? Dicha propiedad estará relacionada de alguna manera con los dígitos de dichos números.
 
-```{r cars}
-summary(cars)
-```
+Normalmente estaremos usando una función $f(n)$ que nos dirá la respuesta para la propiedad, considerando todos los enteros positivos que no excedan $n$. Entonces, para saber el número de números en $[L,R]$ que cumplen, simplemente vamos a calcular $f(R)-f(L-1)$.
 
-## Including Plots
+Para calcular $f(n)$ vamos a auxiliarnos de otra función $dp(pos,canUseAll,...)$. En esta función vamos a ir construyendo los números que cumplen con la propiedad deseada, dígito a dígito, comenzando desde el más significativo. De forma más específica, sea $n=\bar{n_0 n_1 ... n_{l-1}}$ representado dígito a dígito, y supongamos que estamos construyendo un número $x=\bar{d_0 d_1 ... d_{l-1}}$ también con $l$ dígitos, donde el orden de colocar los dígitos comienza en $d_0$ y termina en $d_{l-1}$. Los argumentos son:
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+$pos:$ este argumento nos va a decir en qué posición del número estamos actualmente, de izquierda a derecha. Es decir, estamos colocando el dígito
