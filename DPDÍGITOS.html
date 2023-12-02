@@ -370,13 +370,13 @@ simplemente vamos a calcular <span class="math inline">\(f(R)-f(L-1)\)</span>.</
 auxiliarnos de otra función <span class="math inline">\(dp(pos,canUseAll,...)\)</span>. En esta función
 vamos a ir construyendo los números que cumplen con la propiedad
 deseada, dígito a dígito, comenzando desde el más significativo. De
-forma más específica, sea <span class="math inline">\(n=\overline{n_0
-n_1 ... n_{l-1}}\)</span> representado dígito a dígito, y supongamos que
-estamos construyendo un número <span class="math inline">\(x=\overline{d_0 d_1 ... d_{l-1}}\)</span> también
-con <span class="math inline">\(l\)</span> dígitos, donde el orden de
-colocar los dígitos comienza en <span class="math inline">\(d_0\)</span>
-y termina en <span class="math inline">\(d_{l-1}\)</span>. Los
-argumentos son:</p>
+forma más específica, sea <span class="math inline">\(n=\overline{n_1
+n_2 ... n_l}\)</span> representado dígito a dígito, y supongamos que
+estamos construyendo un número <span class="math inline">\(x=\overline{d_1 d_2 ... d_l}\)</span> también con
+<span class="math inline">\(l\)</span> dígitos, donde el orden de
+colocar los dígitos comienza en <span class="math inline">\(d_1\)</span>
+y termina en <span class="math inline">\(d_l\)</span>. Los argumentos
+son:</p>
 <p><span class="math inline">\(pos:\)</span> Este argumento nos va a
 decir en qué posición del número estamos actualmente, de izquierda a
 derecha. Es decir, estamos colocando el dígito <span class="math inline">\(d_{pos}\)</span></p>
@@ -428,8 +428,8 @@ números entre <span class="math inline">\(L\)</span> y <span class="math inline
 <p>Sea <span class="math inline">\(f(n)\)</span> la suma de dígitos de
 todos los números positivos hasta <span class="math inline">\(n\)</span>. Entonces, <span class="math inline">\(dp(pos,canUseAll,sum)\)</span> nos va a decir la
 suma deseada, solo considerando números construidos desde la posisión
-<span class="math inline">\(pos\)</span>, guardando en la suma de la
-secuencia de dígitos actual.</p>
+<span class="math inline">\(pos\)</span>,donde <span class="math inline">\(sum\)</span> guarda la suma de la secuencia de
+dígitos actual.</p>
 <p>Entonces:</p>
 <p><span class="math display">\[\begin{equation*}
 dp(pos,canUseAll,sum)= \sum_{d=0}^{limit}dp(pos+1,canUseAll
@@ -437,8 +437,8 @@ dp(pos,canUseAll,sum)= \sum_{d=0}^{limit}dp(pos+1,canUseAll
 \end{equation*}\]</span> La mandamos llamar como: <span class="math inline">\(f(n)=dp(0,false,0)\)</span></p>
 <p>Y el caso base es: <span class="math inline">\(dp(l,canUseAll,sum)=sum\)</span></p>
 <p><br></p>
-<p><span class="math inline">\(Ejemplo:\)</span> Sea <span class="math inline">\(n=58956945545875=\overline{n_0 n_1 ...
-n_{l-1}}\)</span> y <span class="math inline">\(l=14\)</span></p>
+<p><span class="math inline">\(Ejemplo:\)</span> Sea <span class="math inline">\(n=48654=\overline{n_1 n_2 ... n_{l}}\)</span> y
+<span class="math inline">\(l=5\)</span></p>
 <p><span class="math display">\[\begin{equation*}
 
 limit =
@@ -448,9 +448,10 @@ n_{pos} &amp; si &amp; canUseAll==false
 \end{cases}
 \end{equation*}\]</span></p>
 <p><span class="math display">\[\begin{equation*}
-dp(0,false,0)= \sum_{d=0}^{5}dp(1,false \hspace{3mm}  || \hspace{3mm}
-d&lt;5, sum+d)
+dp(0,false,0)= \sum_{d=0}^{4}dp(1,false \hspace{3mm}  || \hspace{3mm}
+d&lt;4, sum+d)
 \end{equation*}\]</span></p>
+<p>Y el caso base es: <span class="math inline">\(dp(5,canUseAll,sum)=sum\)</span></p>
 <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
 <!-- title -->
 <i class="fas fa-caret-right"></i>

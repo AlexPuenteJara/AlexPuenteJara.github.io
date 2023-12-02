@@ -10,7 +10,7 @@ Es una técnica que nos permite resolver preguntas del tipo: ¿cuántos enteros 
 
 Normalmente estaremos usando una función $f(n)$ que nos dirá la respuesta para la propiedad, considerando todos los enteros positivos que no excedan $n$. Entonces, para saber el número de números en $[L,R]$ que cumplen, simplemente vamos a calcular $f(R)-f(L-1)$.
 
-Para calcular $f(n)$ vamos a auxiliarnos de otra función $dp(pos,canUseAll,...)$. En esta función vamos a ir construyendo los números que cumplen con la propiedad deseada, dígito a dígito, comenzando desde el más significativo. De forma más específica, sea $n=\overline{n_0 n_1 ... n_{l-1}}$ representado dígito a dígito, y supongamos que estamos construyendo un número $x=\overline{d_0 d_1 ... d_{l-1}}$ también con $l$ dígitos, donde el orden de colocar los dígitos comienza en $d_0$ y termina en $d_{l-1}$. Los argumentos son:
+Para calcular $f(n)$ vamos a auxiliarnos de otra función $dp(pos,canUseAll,...)$. En esta función vamos a ir construyendo los números que cumplen con la propiedad deseada, dígito a dígito, comenzando desde el más significativo. De forma más específica, sea $n=\overline{n_1 n_2 ... n_l}$ representado dígito a dígito, y supongamos que estamos construyendo un número $x=\overline{d_1 d_2 ... d_l}$ también con $l$ dígitos, donde el orden de colocar los dígitos comienza en $d_1$ y termina en $d_l$. Los argumentos son:
 
 $pos:$ Este argumento nos va a decir en qué posición del número estamos actualmente, de izquierda a derecha. Es decir, estamos colocando el dígito $d_{pos}$
 
@@ -52,7 +52,7 @@ Y además notemos que los números construidos pueden contener ceros a la izquie
 Dados $L$ y $R$, hallar la suma de dígitos de todos los números entre $L$ y $R$.Ejemplo: si 
  $L=34$ y $R=37$, la respuesta debe ser $3+4+3+5+3+6+3+7=7+8+9+10=34$.
 
-Sea $f(n)$ la suma de dígitos de todos los números positivos hasta $n$. Entonces, $dp(pos,canUseAll,sum)$ nos va a decir la suma deseada, solo considerando números construidos desde la posisión $pos$, guardando en la suma de la secuencia de dígitos actual.
+Sea $f(n)$ la suma de dígitos de todos los números positivos hasta $n$. Entonces, $dp(pos,canUseAll,sum)$ nos va a decir la suma deseada, solo considerando números construidos desde la posisión $pos$,donde $sum$ guarda la suma de la secuencia de dígitos actual.
 
 Entonces:
 
@@ -66,7 +66,7 @@ Y el caso base es: $dp(l,canUseAll,sum)=sum$
 <br>
 
 $Ejemplo:$
-Sea $n=58956945545875=\overline{n_0 n_1 ... n_{l-1}}$  y $l=14$
+Sea $n=48654=\overline{n_1 n_2 ... n_{l}}$  y $l=5$
 
 \begin{equation*}
 
@@ -78,10 +78,10 @@ n_{pos} & si & canUseAll==false
 \end{equation*}
 
 \begin{equation*}
-dp(0,false,0)= \sum_{d=0}^{5}dp(1,false \hspace{3mm}  || \hspace{3mm} d<5, sum+d)
+dp(0,false,0)= \sum_{d=0}^{4}dp(1,false \hspace{3mm}  || \hspace{3mm} d<4, sum+d)
 \end{equation*}
 
-
+Y el caso base es: $dp(5,canUseAll,sum)=sum$
 
 
 
