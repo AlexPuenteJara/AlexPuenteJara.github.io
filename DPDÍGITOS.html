@@ -436,12 +436,11 @@ dp(pos,canUseAll,sum)= \sum_{d=0}^{limit}dp(pos+1,canUseAll  ||
 d&lt;limit, sum+d)
 \end{equation*}\]</span> La mandamos llamar como: <span class="math inline">\(f(n)=dp(0,false,0)\)</span></p>
 <p>Y el caso base es: <span class="math inline">\(dp(l,canUseAll,sum)=sum\)</span></p>
-El código completo queda como:
 <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
 <!-- title -->
 <i class="fas fa-caret-right"></i>
 <p class="title">
-Código (por Alex Puente)
+<b>CÓDIGO (por Alex Puente)</b>
 </p>
 </div>
 <div id="codeExample1" class="collapse">
@@ -494,6 +493,57 @@ int main(){
 <div id="icpc-2013-c---counting-ones" class="section level2">
 <h2><a href="https://matcomgrader.com/problem/9306/counting-ones/">ICPC-2013-C
 - Counting ones</a></h2>
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i>
+<p class="title">
+<b>CÓDIGO (por Alex Puente)</b>
+</p>
+</div>
+<div id="codeExample1" class="collapse">
+<pre class="cpp"><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+using ll = long long;
+
+ll mem[68][2][250];
+
+ll dp(int pos, bool canUseAll, int sum, const vector&lt;int&gt; &amp; digits_n){
+    if(pos == digits_n.size()){
+        return sum;
+    }
+    ll &amp; ans = mem[pos][canUseAll][sum];
+    if(ans != -1) return ans;
+    ans = 0;
+    int limit = canUseAll ? 1 : digits_n[pos];
+    for(int d = 0; d &lt;= limit; ++d){
+        ans += dp(pos + 1, canUseAll || d &lt; limit, sum + d, digits_n);
+    }
+    return ans;
+}
+
+ll f(ll n){
+    if(n &lt;= 0) return 0;
+    vector&lt;int&gt; digits_n;
+    while(n &gt; 0){
+        digits_n.push_back(n % 2);
+        n /= 2;
+    }
+    reverse(digits_n.begin(), digits_n.end());
+    memset(mem, -1, sizeof(mem));
+    return dp(0, false, 0, digits_n);
+}
+
+int main(){
+    ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    ll a, b;
+    while(cin &gt;&gt; a &gt;&gt; b){       
+    
+        ll ans = f(b) - f(a-1);
+        cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
+    }
+    return 0;
+}</code></pre>
+</div>
 </div>
 <div id="d.-nastya-and-scoreboard" class="section level2">
 <h2><a href="https://codeforces.com/contest/1341/problem/D">D. Nastya
