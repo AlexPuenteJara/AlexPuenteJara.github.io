@@ -193,7 +193,9 @@ int main(){
 }
 ```
 </div>
+## [Counting Numbers](https://cses.fi/problemset/task/2220)
+## [S - Digit Sum](https://atcoder.jp/contests/dp/tasks/dp_s)
 ## [D. Nastya and Scoreboard](https://codeforces.com/contest/1341/problem/D)
 ## [C. Classy Numbers](https://codeforces.com/contest/1036/problem/C)
-## [S - Digit Sum](https://atcoder.jp/contests/dp/tasks/dp_s)
-## [Counting Numbers](https://cses.fi/problemset/task/2220)
+
+
