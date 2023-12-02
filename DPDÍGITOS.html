@@ -404,8 +404,8 @@ n_{pos} &amp; si &amp; canUseAll==false
 \end{cases}
 \end{equation*}\]</span></p>
 <p><span class="math display">\[\begin{equation*}
-dp(pos,canUseAll,...)= \sum_{d=0}^{limit}dp(pos+1,canUseAll  ||
-d&lt;limit, ...)
+dp(pos,canUseAll,...)= \sum_{d=0}^{limit}dp(pos+1,canUseAll \hspace{3mm}
+|| \hspace{3mm} d&lt;limit, ...)
 \end{equation*}\]</span></p>
 <p>Para mandar a llamar a la <span class="math inline">\(DP\)</span>
 usamos <span class="math inline">\(f(n)=dp(0,false,...)\)</span>, y los
@@ -432,10 +432,24 @@ suma deseada, solo considerando números construidos desde la posisión
 secuencia de dígitos actual.</p>
 <p>Entonces:</p>
 <p><span class="math display">\[\begin{equation*}
-dp(pos,canUseAll,sum)= \sum_{d=0}^{limit}dp(pos+1,canUseAll  ||
-d&lt;limit, sum+d)
+dp(pos,canUseAll,sum)= \sum_{d=0}^{limit}dp(pos+1,canUseAll
+\hspace{3mm}  || \hspace{3mm} d&lt;limit, sum+d)
 \end{equation*}\]</span> La mandamos llamar como: <span class="math inline">\(f(n)=dp(0,false,0)\)</span></p>
 <p>Y el caso base es: <span class="math inline">\(dp(l,canUseAll,sum)=sum\)</span></p>
+<p><br></p>
+<p><span class="math inline">\(Ejemplo:\)</span> Sea <span class="math inline">\(n=58956945545875\)</span> y <span class="math inline">\(l=14\)</span></p>
+<p><span class="math display">\[\begin{equation*}
+
+limit =
+\begin{cases}
+9  &amp; si  &amp; canUseAll== true\\
+n_{pos} &amp; si &amp; canUseAll==false
+\end{cases}
+\end{equation*}\]</span></p>
+<p><span class="math display">\[\begin{equation*}
+dp(0,false,0)= \sum_{d=0}^{limit}dp(1,false \hspace{3mm}  ||
+\hspace{3mm} d&lt;limit, sum+d)
+\end{equation*}\]</span></p>
 <div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
 <!-- title -->
 <i class="fas fa-caret-right"></i>
