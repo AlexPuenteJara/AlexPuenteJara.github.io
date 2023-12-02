@@ -53,7 +53,7 @@ Dados $L$ y $R$, hallar la suma de dígitos de todos los números entre $L$ y $R
  $L=34$ y $R=37$, la respuesta debe ser $3+4+3+5+3+6+3+7=7+8+9+10=34$.
 
 Sea $f(n)$ la suma de dígitos de todos los números positivos hasta $n$. Entonces $f(R)-f(L-1)$ nos va a decir la suma deseada.
-$dp(pos,canUseAll,sum)$nos dará la suma de cifras de todos los números construidos después de la posisión $pos$, donde $sum$ guarda la suma de cifras de la secuencia de dígitos actual.
+$dp(pos,canUseAll,sum)$nos dará la suma de cifras de todos los números construidos desde la posisión $pos$, donde $sum$ guarda la suma de cifras de la secuencia de dígitos actual.
 
 Entonces:
 
