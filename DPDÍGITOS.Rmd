@@ -120,12 +120,12 @@ int main(){
 </div>
 
 ## [ICPC-2013-C - Counting ones](https://matcomgrader.com/problem/9306/counting-ones/)
-<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample2" aria-expanded="false" aria-controls="collapseTwo">
 <!-- title -->
 <i class="fas fa-caret-right"></i> 
 <p class="title"><b>CÓDIGO (por Alex Puente)</b></p>
 </div>
-<div id="codeExample1" class="collapse">
+<div id="codeExample2" class="collapse">
 
 ```c++
 #include <bits/stdc++.h>
