@@ -447,15 +447,15 @@ Código (por Alex Puente)
 <div id="codeExample1" class="collapse">
 <pre class="cpp"><code>#include &lt;bits/stdc++.h&gt;
 using namespace std;
-using lli = int64_t;
+using ll = long long;
 
-lli mem[17][2][150];
+ll mem[17][2][150];
 
-lli dp(int pos, bool canUseAll, int sum, const vector&lt;int&gt; &amp; digits_n){
+ll dp(int pos, bool canUseAll, int sum, const vector&lt;int&gt; &amp; digits_n){
     if(pos == digits_n.size()){
         return sum;
     }
-    lli &amp; ans = mem[pos][canUseAll][sum];
+    ll &amp;ans = mem[pos][canUseAll][sum];
     if(ans != -1) return ans;
     ans = 0;
     int limit = canUseAll ? 9 : digits_n[pos];
@@ -465,7 +465,7 @@ lli dp(int pos, bool canUseAll, int sum, const vector&lt;int&gt; &amp; digits_n)
     return ans;
 }
 
-lli f(lli n){
+ll f(ll n){
     if(n &lt;= 0) return 0;
     vector&lt;int&gt; digits_n;
     while(n &gt; 0){
@@ -482,14 +482,34 @@ int main(){
     int t;
     cin &gt;&gt; t;
     while(t--){
-        lli a, b;
+        ll a, b;
         cin &gt;&gt; a &gt;&gt; b;
-        lli ans = f(b) - f(a-1);
+        ll ans = f(b) - f(a-1);
         cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
     }
     return 0;
 }</code></pre>
 </div>
+</div>
+<div id="icpc-2013-c---counting-ones" class="section level2">
+<h2><a href="https://matcomgrader.com/problem/9306/counting-ones/">ICPC-2013-C
+- Counting ones</a></h2>
+</div>
+<div id="d.-nastya-and-scoreboard" class="section level2">
+<h2><a href="https://codeforces.com/contest/1341/problem/D">D. Nastya
+and Scoreboard</a></h2>
+</div>
+<div id="c.-classy-numbers" class="section level2">
+<h2><a href="https://codeforces.com/contest/1036/problem/C">C. Classy
+Numbers</a></h2>
+</div>
+<div id="s---digit-sum" class="section level2">
+<h2><a href="https://atcoder.jp/contests/dp/tasks/dp_s">S - Digit
+Sum</a></h2>
+</div>
+<div id="counting-numbers" class="section level2">
+<h2><a href="https://cses.fi/problemset/task/2220">Counting
+Numbers</a></h2>
 </div>
 
 

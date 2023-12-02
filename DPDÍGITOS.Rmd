@@ -73,15 +73,15 @@ El código completo queda como:
 ```c++
 #include <bits/stdc++.h>
 using namespace std;
-using lli = int64_t;
+using ll = long long;
 
-lli mem[17][2][150];
+ll mem[17][2][150];
 
-lli dp(int pos, bool canUseAll, int sum, const vector<int> & digits_n){
+ll dp(int pos, bool canUseAll, int sum, const vector<int> & digits_n){
 	if(pos == digits_n.size()){
 		return sum;
 	}
-	lli & ans = mem[pos][canUseAll][sum];
+	ll &ans = mem[pos][canUseAll][sum];
 	if(ans != -1) return ans;
 	ans = 0;
 	int limit = canUseAll ? 9 : digits_n[pos];
@@ -91,7 +91,7 @@ lli dp(int pos, bool canUseAll, int sum, const vector<int> & digits_n){
 	return ans;
 }
 
-lli f(lli n){
+ll f(ll n){
 	if(n <= 0) return 0;
 	vector<int> digits_n;
 	while(n > 0){
@@ -108,9 +108,9 @@ int main(){
 	int t;
 	cin >> t;
 	while(t--){
-		lli a, b;
+		ll a, b;
 		cin >> a >> b;
-		lli ans = f(b) - f(a-1);
+		ll ans = f(b) - f(a-1);
 		cout << ans << "\n";
 	}
 	return 0;
@@ -118,4 +118,8 @@ int main(){
 ```
 
 </div>
-
+## [ICPC-2013-C - Counting ones](https://matcomgrader.com/problem/9306/counting-ones/)
+## [D. Nastya and Scoreboard](https://codeforces.com/contest/1341/problem/D)
+## [C. Classy Numbers](https://codeforces.com/contest/1036/problem/C)
+## [S - Digit Sum](https://atcoder.jp/contests/dp/tasks/dp_s)
+## [Counting Numbers](https://cses.fi/problemset/task/2220)
