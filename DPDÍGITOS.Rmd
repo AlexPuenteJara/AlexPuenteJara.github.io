@@ -66,7 +66,7 @@ Y el caso base es: $dp(l,canUseAll,sum)=sum$
 <br>
 
 $Ejemplo:$
-Sea $n=58956945545875$ y $l=14$
+Sea $n=58956945545875=\overline{n_0 n_1 ... n_{l-1}}$  y $l=14$
 
 \begin{equation*}
 
@@ -78,8 +78,9 @@ n_{pos} & si & canUseAll==false
 \end{equation*}
 
 \begin{equation*}
-dp(0,false,0)= \sum_{d=0}^{limit}dp(1,false \hspace{3mm}  || \hspace{3mm} d<limit, sum+d)
+dp(0,false,0)= \sum_{d=0}^{5}dp(1,false \hspace{3mm}  || \hspace{3mm} d<5, sum+d)
 \end{equation*}
+
 
 
 
