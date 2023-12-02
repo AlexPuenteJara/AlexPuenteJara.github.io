@@ -384,7 +384,7 @@ derecha. Es decir, estamos colocando el dígito <span class="math inline">\(d_{p
 booleano que nos dice si en la posición actual podemos colocar cualquier
 dígito entre <span class="math inline">\(0\)</span> y <span class="math inline">\(9\)</span>, o solo entre <span class="math inline">\(0\)</span> y el dígito en la posición actual de
 <span class="math inline">\(n\)</span>. Por ejemplo, supongamos que
-<span class="math inline">\(n=527\)</span> y estamos en <span class="math inline">\(pos=0\)</span>, entonces solo podemos colocar
+<span class="math inline">\(n=527\)</span> y estamos en <span class="math inline">\(pos=1\)</span>, entonces solo podemos colocar
 dígitos entre el <span class="math inline">\(0\)</span> y el <span class="math inline">\(5\)</span>.</p>
 <p><span class="math inline">\(Propiedades:\)</span> Puede ser la suma
 de dígitos al momento, el conteo de algún dígito, etc, dependiendo de la
@@ -426,10 +426,11 @@ DÍGITOS</a></h2>
 <p>Dados <span class="math inline">\(L\)</span> y <span class="math inline">\(R\)</span>, hallar la suma de dígitos de todos los
 números entre <span class="math inline">\(L\)</span> y <span class="math inline">\(R\)</span>.Ejemplo: si <span class="math inline">\(L=34\)</span> y <span class="math inline">\(R=37\)</span>, la respuesta debe ser <span class="math inline">\(3+4+3+5+3+6+3+7=7+8+9+10=34\)</span>.</p>
 <p>Sea <span class="math inline">\(f(n)\)</span> la suma de dígitos de
-todos los números positivos hasta <span class="math inline">\(n\)</span>. Entonces, <span class="math inline">\(dp(pos,canUseAll,sum)\)</span> nos va a decir la
-suma deseada, solo considerando números construidos desde la posisión
-<span class="math inline">\(pos\)</span>,donde <span class="math inline">\(sum\)</span> guarda la suma de la secuencia de
-dígitos actual.</p>
+todos los números positivos hasta <span class="math inline">\(n\)</span>. Entonces <span class="math inline">\(f(R)-f(L-1)\)</span> nos va a decir la suma
+deseada. <span class="math inline">\(dp(pos,canUseAll,sum)\)</span>nos
+dará la suma de cifras de todos los números construidos después de la
+posisión <span class="math inline">\(pos\)</span>, donde <span class="math inline">\(sum\)</span> guarda la suma de cifras de la
+secuencia de dígitos actual.</p>
 <p>Entonces:</p>
 <p><span class="math display">\[\begin{equation*}
 dp(pos,canUseAll,sum)= \sum_{d=0}^{limit}dp(pos+1,canUseAll
