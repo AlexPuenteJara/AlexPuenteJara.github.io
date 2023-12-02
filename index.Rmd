@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## [BIT MANIPULATION](./BitManipulation.html)
 ## [DYNAMIC PROGRAMMING](./DPcito.html)
 
-## [DP DPIGITOS](./DPDÍGITOS.html)
+## [DP DÍGITOS](./DPDÍGITOS.html)
 
 
 
