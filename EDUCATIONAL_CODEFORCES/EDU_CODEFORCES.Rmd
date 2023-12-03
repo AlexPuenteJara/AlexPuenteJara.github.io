@@ -1,0 +1,7 @@
+---
+title: "EDU_CODEFORCES"
+output: html_document
+date: "2023-12-03"
+---
+
+## [BINARY SEARCH](./BINARY_SEARCH.html)

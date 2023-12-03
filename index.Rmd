@@ -10,9 +10,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## [INTRODUCTION](./class-01.html)
 ## [BIT MANIPULATION](./BitManipulation.html)
-## [DP DÍGITOS](./DPDÍGITOS.html)
+## [PROGRAMACIÓN DINÁMICA](DP/DP.html)
 
-## [SOLUCIONARIO ICPC](./ICPC.html)
+
+## [EDUCATIONAL CODEFORCES](EDUCATIONAL_CODEFORCES/EDU_CODEFORCES.html)
+## [SOLUCIONARIO ICPC](ICPC/ICPC.html)
 
 
 
