@@ -1,29 +1,74 @@
 ---
 title: "BINARY_SEARCH"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
 date: "2023-12-03"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## [EDU 114C. Slay the Dragon](https://codeforces.com/contest/1574/problem/C)
+<!-- begin code -->
+<div class="collapsed code-title" type="button" data-toggle="collapse" data-target="#codeExample1" aria-expanded="false" aria-controls="collapseTwo">
+<!-- title -->
+<i class="fas fa-caret-right"></i> <p class="title">Código (por Alex)</p>
+</div>
+<div id="codeExample1" class="collapse">
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+/*Vocabulary
+ slay-> matar
+ defeat-> vencer
+ squad-> equipo
+*/
+#define debug(x) cout << #x << " = " << x << endl
+#define fastio ios_base::sync_with_stdio(false);cin.tie(NULL)
+#define pb push_back
+#define mp make_pair
+#define all(v) sort(v.begin(),v.end())
+#define sz(v) int(v.size())
+typedef long long ll;
+typedef pair<int, int> ii;
+typedef vector<int> vi;
+typedef vector<ii> vii;
+const int MAXN=1e5+5;
+const int inf=1e9;
+const long long mod=1e9+7;
+vector<int> g[MAXN] ;
+bool used[MAXN];
+vector<int> comp ;
+#define yes cout<<"YES\n";
+#define no cout<<"NO\n";
+const double PI = acos(-1);
+int main() {
+    fastio;
+    int n;
+    cin >> n;
+    vector<ll> a(n);
+    for (auto &x : a) cin >> x;
+    sort(a.begin(), a.end());
+    ll sum = accumulate(a.begin(), a.end(), 0LL);
+    int m;
+    cin >> m;
+    while (m--) {
+        ll x, y;
+        cin >> x >> y;//x defensa del dragon, y es el attack
+        int i = lower_bound(a.begin(), a.end(), x) - a.begin();
+        /*i es el índice del primer elemento no menor a X*/
+        ll ans = 2e18;
+        if (i > 0) ans = min(ans, (x - a[i - 1]) + max(0LL, y - sum + a[i - 1]));
+        /*la parte del max es la fuerza que voy a comprar para que resista el
+        ataque y del dragón.*/
+        //(x - a[i - 1]) esta parte son los coins que necesitas para matar al dragón
+        if (i < n) ans = min(ans, max(0LL, y - sum + a[i]));/*son los coins que necesitas
+        para resistir el ataque y del dragón, como usas el a[i] para atacar entonces
+        ya sabes que si lo vas a vencer.*/
+        cout << ans << '\n';
+    }
+}
+
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+</div>

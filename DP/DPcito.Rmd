@@ -2,8 +2,7 @@
 title: "SOLUCIÓN PROBLEMAS DE PROGRAMACIÓN DINAMICA"
 author: "Alex Puente"
 date: "02-12-2023"
-
-
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}

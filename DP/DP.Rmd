@@ -4,4 +4,4 @@ output: html_document
 date: "2023-12-03"
 ---
 
-## [DP DÍGITOS](./DPDÍGITOS.html)
+## [DP DIGITOS](./DPDIGITOS.html)
