@@ -1,3 +1,9 @@
 css selector{
   font-size: 15pt;
 }
+
+.watch-out {
+  background-color: lightpink;
+  border: 3px solid red;
+  font-weight: bold;
+}

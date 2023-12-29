@@ -2,14 +2,17 @@
 title: "PROGRAMACIÓN COMPETITIVA UNMSM"
 date: "02-12-2023"
 output:
-  html_document:
-    df_print: paged
+      html_document:
+      css: "Styles.css"
+    
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
+```{r class.source="watch-out"}
+mtcars[1:5, "mpg"]
+```
 
 ## [INTRODUCTION](./class-01.html)
 ## [BIT MANIPULATION](./BitManipulation.html)
