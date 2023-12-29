@@ -1,0 +1,49 @@
+---
+title: "EDUCATIONAL 101-A"
+output:
+  pdf_document: default
+  html_document: default
+---
+El arreglo $a$ de $n$+$m$ elementos se pinta y se divide 
+        en $n$ elementos de color rojo y $m$ elementos de color azul
+        de tal manera que se maximice el valor de $f(a)$.
+        $$f(a)=max(0,a_1,a_1+a_2,a_1+a_2+a_3,...)$$
+        
+```C++
+#include<bits/stdc++.h>
+using namespace std;
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);
+#define int long long
+#define endl '\n'
+#define all(x) x.begin(), x.end()
+int n;
+int MOD=1e9+7;
+const int inf=1e9;
+const int MAXN=3e5+5;
+int a[MAXN];
+signed main(){
+    int t;
+    cin>>t;
+    while(t--){
+       
+        int n,red;
+        cin>>n;
+        int sum1=0,sum2=0,best1=0,best2=0;
+        for(int i=0;i<n;i++){
+            cin>>red;
+            sum1+=red;
+            best1=max(best1,sum1);
+        }
+        int m,blue;
+        cin>>m;
+        for(int i=0;i<m;i++){
+            cin>>blue;
+            sum2+=blue;
+            best2=max(best2,sum2);
+        }
+        cout<<best1+best2<<'\n';
+    }
+	return 0;
+}
+
+```

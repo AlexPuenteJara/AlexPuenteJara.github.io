@@ -5,3 +5,4 @@ date: "2023-12-03"
 ---
 
 ## [BINARY SEARCH](./BINARY_SEARCH.html)
+## [PROBLEMS A](./PROBLEMS_A.html)

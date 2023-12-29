@@ -10,9 +10,8 @@
 
 
 
-<meta name="date" content="2023-12-03" />
 
-<title>EDU_CODEFORCES</title>
+<title>EDUCATIONAL 101-A</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -349,18 +348,51 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">EDU_CODEFORCES</h1>
-<h4 class="date">2023-12-03</h4>
+<h1 class="title toc-ignore">EDUCATIONAL 101-A</h1>
 
 </div>
 
 
-<div id="binary-search" class="section level2">
-<h2><a href="./BINARY_SEARCH.html">BINARY SEARCH</a></h2>
-</div>
-<div id="problems-a" class="section level2">
-<h2><a href="./PROBLEMS_A.html">PROBLEMS A</a></h2>
-</div>
+<p>El arreglo <span class="math inline">\(a\)</span> de <span class="math inline">\(n\)</span>+<span class="math inline">\(m\)</span>
+elementos se pinta y se divide en <span class="math inline">\(n\)</span>
+elementos de color rojo y <span class="math inline">\(m\)</span>
+elementos de color azul de tal manera que se maximice el valor de <span class="math inline">\(f(a)\)</span>. <span class="math display">\[f(a)=max(0,a_1,a_1+a_2,a_1+a_2+a_3,...)\]</span></p>
+<pre class="c++"><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);
+#define int long long
+#define endl &#39;\n&#39;
+#define all(x) x.begin(), x.end()
+int n;
+int MOD=1e9+7;
+const int inf=1e9;
+const int MAXN=3e5+5;
+int a[MAXN];
+signed main(){
+    int t;
+    cin&gt;&gt;t;
+    while(t--){
+       
+        int n,red;
+        cin&gt;&gt;n;
+        int sum1=0,sum2=0,best1=0,best2=0;
+        for(int i=0;i&lt;n;i++){
+            cin&gt;&gt;red;
+            sum1+=red;
+            best1=max(best1,sum1);
+        }
+        int m,blue;
+        cin&gt;&gt;m;
+        for(int i=0;i&lt;m;i++){
+            cin&gt;&gt;blue;
+            sum2+=blue;
+            best2=max(best2,sum2);
+        }
+        cout&lt;&lt;best1+best2&lt;&lt;&#39;\n&#39;;
+    }
+    return 0;
+}
+</code></pre>
 
 
 
